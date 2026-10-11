@@ -90,7 +90,7 @@ Prioritas: **M** = Must, **S** = Should, **C** = Could.
 | ID | Kebutuhan | P |
 | --- | --- | --- |
 | FR-01 | Login dengan Odoo Auth dan tiga role: Owner, Staf, Viewer | M |
-| FR-02 | CRUD master Lini Bisnis (ditambah tanpa ubah kode) dan Penjual | M |
+| FR-02 | CRUD master Lini Bisnis (ditambah tanpa ubah kode; SPPG diarsipkan karena sudah tidak aktif, data historis tetap ada) dan Penjual | M |
 | FR-10 | CRUD Transaksi (Pemasukan/Pengeluaran) dengan total otomatis = qty × harga satuan | M |
 | FR-11 | Impor riwayat transaksi dari CSV hasil ekspor Google Sheets | M |
 | FR-12 | Filter dan pengelompokan transaksi per bulan, lini, jenis, sumber input; ekspor ke Excel | M |
@@ -98,10 +98,10 @@ Prioritas: **M** = Must, **S** = Should, **C** = Could.
 | FR-20 | Status pembayaran otomatis: Belum Lunas, Sebagian, Lunas | M |
 | FR-21 | Pencatatan pembayaran/cicilan per transaksi | M |
 | FR-22 | Daftar Piutang (pemasukan) dan Hutang (pengeluaran) per partner, lengkap dengan sisa tagihan dan umur hari | M |
-| FR-23 | Tanggal jatuh tempo dan penanda terlambat | S |
+| FR-23 | Tanggal jatuh tempo (default 3 hari, bisa diubah) dan penanda terlambat | S |
 | FR-30 | CRUD Bahan Baku dengan satuan dan stok minimum | M |
 | FR-31 | Transaksi pengeluaran yang dikaitkan ke bahan baku otomatis menambah stok saat dikonfirmasi | M |
-| FR-32 | Resep: produk jadi dengan daftar bahan dan takaran per 1 pcs | M |
+| FR-32 | Resep berbasis batch: adonan, filling, dan kemasan, masing-masing dengan hasil (yield) dan daftar bahan; produk = adonan + filling + kemasan | M |
 | FR-33 | Produksi Harian: konfirmasi memotong stok bahan sesuai resep × jumlah produksi | M |
 | FR-34 | Penyesuaian stok manual dengan alasan | S |
 | FR-35 | Penanda stok kritis dan reminder restock | S |
@@ -116,6 +116,17 @@ Prioritas: **M** = Must, **S** = Should, **C** = Could.
 | FR-72 | Reminder diteruskan ke Telegram | C |
 | FR-80 | Endpoint API untuk menerima transaksi dari n8n dengan API key | C |
 
+**Tambahan kebutuhan fungsional (pembaruan 10 Okt 2026)**
+
+- FR-36 (M): impor 19 bahan baku dan resep (adonan, filling, kemasan) dari file HPP Roti
+- FR-37 (S): HPP otomatis per produk dari resep, harga bahan, dan overhead
+- FR-43 (M): Tutup Kas mencatat nasib tiap unit gak laku: dibagikan, dijual ulang, atau dibuang
+- FR-44 (M): unit yang dijual ulang muncul otomatis sebagai sisa kemarin di Tutup Kas berikutnya, maksimal satu kali
+- FR-53 (C): laporan margin per produk (harga jual dikurangi HPP)
+- FR-54 (S): biaya barang gak laku tampil terpisah di Laba Rugi
+
+* FR-45 (S): master Penjual punya skema bayar (gaji tetap atau komisi hasil jualan); Tutup Kas menghitung nilai terjual dan komisi per penjual
+
 ## 7. Model Data (Ringkas)
 
 **`genresi.business.line`**: name, active.
@@ -128,13 +139,15 @@ Prioritas: **M** = Must, **S** = Should, **C** = Could.
 
 **`genresi.stock.move`**: material\_id, date, type (in/out/adjust), qty, ref (transaksi/produksi/penyesuaian), note.
 
-**`genresi.product`**: name, price, uom\_id, business\_line\_id default. **`genresi.recipe.line`**: product\_id, material\_id, qty\_per\_unit.
+**`genresi.product`**: name, price, adonan\_recipe\_id, filling\_recipe\_id (opsional), aktif/arsip, business\_line\_id default. **`genresi.recipe.line`**: recipe\_id, material\_id, qty (takaran per batch).
 
 **`genresi.production`**: date, product\_id, qty, state (draft/done), baris bahan terpakai (computed saat konfirmasi).
 
 **`genresi.seller`**: name.
 
-**`genresi.closing`** (mail.thread): date (unik per hari), state, cash, qris, change (kembalian), dan semua field computed pada Bagian 8. **`genresi.closing.line`**: closing\_id, product\_id, seller\_id, qty\_carried, qty\_unsold, price (snapshot harga).
+**`genresi.closing`** (mail.thread): date (unik per hari), state, cash, qris, change (kembalian), dan semua field computed pada Bagian 8. **`genresi.closing.line`**: closing\_id, product\_id, seller\_id, qty\_fresh, qty\_carryover, qty\_unsold, qty\_shared, qty\_discard, qty\_resale, price (snapshot harga).
+
+**Tambahan model (pembaruan 10 Okt 2026).** `genresi.recipe`: name, type (adonan/filling/kemasan), yield\_qty (hasil batch dalam pcs), baris bahan. `genresi.config`: overhead produksi per pcs, opex jualan per pcs, default jatuh tempo (hari). Pada `genresi.material` ditambah cost\_per\_uom (harga per gram atau pcs, mengikuti file HPP) dan pack\_size (isi kemasan). Pada genresi.seller ditambah pay\_type (gaji tetap atau komisi hasil jualan) dan commission\_pct.
 
 ## 8. Aturan Bisnis dan Rumus
 
@@ -148,12 +161,12 @@ Prioritas: **M** = Must, **S** = Should, **C** = Could.
 **Stok**
 
 - Konfirmasi transaksi pengeluaran yang punya `bahan_id` membuat pergerakan stok *in*.
-- Konfirmasi produksi membuat pergerakan stok *out* sebesar `qty_per_unit × qty` untuk setiap bahan resep. Jika stok tidak cukup, tampilkan peringatan (tidak memblokir, karena stok awal mungkin belum diinput).
+- Konfirmasi produksi membuat pergerakan stok *out* sebesar `(takaran resep ÷ hasil batch) × jumlah produksi` untuk setiap bahan resep. Jika stok tidak cukup, tampilkan peringatan (tidak memblokir, karena stok awal mungkin belum diinput).
 - Penjualan roti **tidak** mengubah stok. Stok produk jadi tidak dilacak, karena roti dibuat dan dijual pada hari yang sama. Barang yang tidak laku dicatat di Tutup Kas.
 
 **Tutup Kas** (diverifikasi terhadap rekap 23/08/2026)
 
-- Nilai Goods = Σ(qty\_carried × price) → Rp1.085.000
+- Nilai Goods = Σ((qty\_fresh + qty\_carryover) × price) → Rp1.085.000
 - Nilai Gak Laku = Σ(qty\_unsold × price) → Rp70.000
 - Omset Seharusnya = Goods − Gak Laku → Rp1.015.000
 - Cash Bersih = Cash − Kembalian → Rp240.000 (500.000 − 260.000)
@@ -166,6 +179,25 @@ Prioritas: **M** = Must, **S** = Should, **C** = Could.
 - *Arus Kas*: Σ pembayaran masuk − Σ pembayaran keluar pada periode.
 - *Laba Rugi sederhana*: Σ pemasukan − Σ pengeluaran pada periode, per lini bisnis.
 - Kedua laporan memakai periode custom, tidak terbatas bulan berjalan.
+
+**Barang gak laku** (aturan dari pemilik)
+
+- Setiap unit gak laku punya satu dari tiga nasib: dibagikan (paling sering), dijual ulang besok, atau dibuang (jarang). Jumlah ketiganya harus sama dengan qty\_unsold.
+- Dijual ulang maksimal satu kali. Unit yang dijual ulang muncul otomatis sebagai qty\_carryover di Tutup Kas hari berikutnya. Jika masih gak laku, sisa kemarin wajib dibagikan atau dibuang: qty\_resale ≤ qty\_unsold − min(qty\_unsold, qty\_carryover).
+- Biaya barang gak laku = (qty\_shared + qty\_discard) × HPP produk, tampil terpisah di Laba Rugi (dibagikan = biaya, dibuang = rugi). Barang dijual ulang tidak dihitung rugi.
+
+**Jatuh tempo**
+
+- Berlaku untuk semua lini, karena SPPG sudah tidak aktif. Default = tanggal transaksi + 3 hari (parameter Konfigurasi, kisaran normal 1–3 hari), bisa diubah per transaksi. Transaksi belum lunas yang lewat jatuh tempo diberi badge Terlambat.
+
+**HPP**
+
+- HPP produk = biaya adonan per pcs + biaya filling per pcs + kemasan + overhead produksi per pcs (Bagian 17). Opex jualan tidak masuk HPP dan hanya tampil di kolom HPP Gabungan.
+
+**Komisi penjual**
+
+- Nilai terjual per penjual = Σ((qty\_fresh + qty\_carryover − qty\_unsold) × price) pada baris penjual itu. Untuk penjual berskema komisi (mis. Teh Reni), komisi harian = nilai terjual × commission\_pct. Penjual bergaji tetap tidak dihitung harian.
+- Komisi masuk biaya jualan di luar HPP. Opex jualan di file HPP (Rp1.155,90 per pcs) belum memuat komisi ini, sehingga angkanya perlu diperbarui setelah persentase ditetapkan.
 
 ## 9. Role dan Hak Akses
 
@@ -225,7 +257,7 @@ Diimplementasikan lewat `res.groups` yang saling mewarisi, `ir.model.access.csv`
 | 5–8 | Sprint 1 | `genresi_base`, auth dan role, Transaksi, impor CSV, Pembayaran dan Piutang/Hutang |
 | 9–12 | Sprint 2 | Stok, Resep, Produksi, Tutup Kas, Laporan PDF, Dashboard, reminder |
 | 13–14 | Sprint 3 | Tema dan polishing UI, Arus Kas/Laba Rugi, endpoint API (jika sempat), dokumentasi |
-| 15 | UAT | UAT dengan pemilik, deploy, user manual |
+| 15 | UAT | Stock opname bahan baku (hitung fisik) sebelum UAT, UAT dengan pemilik, deploy, user manual |
 | 16 | Wrap-up | Presentasi dan handover |
 
 ## 15. Risiko dan Pertanyaan Terbuka
@@ -234,16 +266,63 @@ Diimplementasikan lewat `res.groups` yang saling mewarisi, `ir.model.access.csv`
 | --- | --- |
 | Cakupan terlalu besar untuk 16 minggu | Prioritas Must/Should/Could jelas. Dashboard, Arus Kas, dan API boleh dipangkas |
 | Odoo terasa berlebihan | Dependensi minimal, modul custom, tanpa Inventory/Accounting |
-| Data stok awal dan takaran resep belum ada | Stok awal diinput lewat penyesuaian. Takaran dikumpulkan dari pemilik di Minggu 2–3 |
+| Stok awal bahan belum dihitung | Stok awal diinput lewat penyesuaian. Takaran resep diambil dari file HPP Roti di Minggu 2–3 |
 | Data historis di Sheets tidak seragam | Skrip pembersihan CSV sebelum impor, uji rekonsiliasi total |
 
-**Pertanyaan terbuka untuk pemilik usaha:**
+**Keputusan pemilik usaha (10 Okt 2026, via Nanda)**
 
-1. Berapa takaran bahan per varian roti, dan berapa stok bahan saat ini?
-2. Barang yang tidak laku dibuang, dijual ulang, atau dibagikan? (menentukan perlu tidaknya pencatatan lanjutan)
-3. Berapa lama tempo pembayaran umum untuk pelanggan SPPG?
-4. Siapa saja penjual yang perlu didaftarkan selain Nanda dan Teh Reni?
+| # | Pertanyaan | Jawaban | Dampak ke desain |
+| --- | --- | --- | --- |
+| 1 | Takaran bahan | Ada di file HPP Roti | Resep diimpor dari file, berbasis batch (Bagian 17) |
+| 2 | Barang gak laku | Dibagikan (paling sering), dijual ulang besok (maksimal sekali), dibuang (jarang) | Tiga nasib per unit di Tutup Kas, aturan di Bagian 8 |
+| 3 | Tempo bayar | Umumnya 1–3 hari; SPPG sudah tidak ada | Default jatuh tempo 3 hari; lini SPPG diarsipkan |
+| 4 | Daftar penjual | Mengacu ke file HPP | Master Penjual dinamis dengan skema bayar (gaji tetap atau komisi hasil jualan), awal dari file HPP dan rekap WA |
+
+**Masih terbuka:**
+
+- Stok awal bahan baku dihitung fisik (stock opname) sebelum UAT, lalu diinput lewat penyesuaian stok.
+- Persentase atau skema komisi Teh Reni, yang dibayar dari hasil jualannya.
 
 ## 16. Di Luar Cakupan
 
 Neraca formal dan akuntansi double-entry, analitik dan prediksi permintaan, integrasi POS dan payment gateway, pelacakan stok produk jadi, aplikasi mobile native, multi-cabang dan SaaS multi-tenant.
+
+## 17. Data HPP Roti: Sumber Resep dan Biaya
+
+File HPP\_ROTI\_REVISI menjadi sumber data awal resep, harga bahan, dan overhead, dan bentuknya menentukan model resep di Genresi.
+
+- 19 bahan dengan harga per gram atau pcs. Harga memakai harga tertinggi yang pernah dibayar, kebijakan konservatif yang disengaja pemilik. Genresi menyimpannya di cost\_per\_uom dan tidak menimpanya otomatis dari transaksi.
+- Resep berbasis batch: adonan Varian A (Bungasari) dan Varian B (Natural) masing-masing hasil 8 loyang, filling keju (15 roti), daging (30 loyang), coklat (16 loyang), serta kemasan per pcs (lunch box dan kresek). Produksi memotong stok proporsional terhadap hasil batch.
+- 8 kombinasi produk (4 jenis × 2 adonan). Pada simulasi hanya adonan Natural yang dijual, sehingga varian Bungasari diarsipkan.
+- Overhead produksi Rp1.913,57 per pcs (tenaga kerja dan gas, depresiasi alat, listrik) dihitung dari kapasitas rata-rata 64 pcs per hari (48 weekday, 96 weekend) dan disimpan sebagai parameter. Opex jualan Rp1.155,90 per pcs berada di luar HPP.
+- Staf dalam file: baker Kak Mei dan Mama Farel; jaga toko Nanda dan Owner (baris Farel, gaji Rp0, diganti Teh Reni; besaran gajinya belum diketahui). Menjadi referensi awal master Penjual, ditambah Teh Reni dari rekap WA (membantu jualan dan dibayar dari hasil jualannya).
+
+HPP per pcs sebagai data uji (dibulatkan ke rupiah). Angka ini sudah termasuk overhead produksi, jadi tidak boleh ditambah overhead lagi:
+
+| Jenis roti | Harga jual | HPP adonan Natural | HPP adonan Bungasari |
+| --- | --- | --- | --- |
+| Original | Rp20.000 | Rp8.979 | Rp9.676 |
+| Keju | Rp25.000 | Rp13.505 | Rp14.203 |
+| Daging | Rp35.000 | Rp14.745 | Rp15.443 |
+| Coklat | Rp25.000 | Rp10.541 | Rp11.239 |
+
+**Keputusan atas selisih data:**
+
+- Roti srikaya (Rp25.000) dibuat sebagai resep baru mengikuti pola file HPP: filling satu bahan (selai srikaya) dengan adonan Natural. Takaran awal 500 g untuk 16 loyang dan harga bahan berstatus placeholder (ditandai kuning, seperti di file HPP) sampai dikonfirmasi. HPP srikaya menampilkan peringatan selama harga belum diisi.
+- Nama produk disatukan menjadi "Daging" (sesuai file HPP dan rekap WA). Nama "daging teriyaki" dari data transaksi lama dipetakan sebagai alias saat impor.
+
+## 18. Keputusan Tambahan dari Pemilik (10 Okt 2026, putaran 2)
+
+- **Kembalian** adalah uang receh modal yang disiapkan di awal hari, bukan kembalian ke pembeli. Field di Tutup Kas dinamai "Modal Kembalian". Rumus tetap: Cash Bersih = Cash − Modal Kembalian.
+- **QRIS belum masuk rekening** dicatat di Tutup Kas sebagai butir rekonsiliasi ("QRIS belum cair"), bukan piutang. Transaksinya tetap Lunas dan nilai QRIS tetap masuk omset aktual. Butir ini hanya untuk mencocokkan saldo rekening.
+- **Piutang berdasarkan kepercayaan:** hanya pelanggan lama/tetap yang boleh bayar belakangan, pelanggan baru bayar di muka. Partner diberi tanda "Pelanggan Tetap", dan metode Belum Dibayar hanya bisa dipilih untuk partner bertanda ini. Hutang ke supplier tetap didukung; apakah ada supplier yang benar-benar berhutang belum terjawab.
+- **Stok produk jadi:** hanya roti yang dibawa jualan yang dicatat.
+- **Kategori pengeluaran:** Bahan, Kemasan, Gas/Listrik, Gaji/Komisi, Sewa tempat, Lainnya. Arus Kas dan Laba Rugi mengelompokkan pengeluaran per kategori.
+- **Stok minimum** ditentukan manual per bahan berdasarkan kebutuhan produksi, bukan aturan jumlah hari. Bahan dibeli lagi ketika habis, tanpa rumus otomatis.
+- **Satuan resep:** 1 loyang = 1 pcs roti (asumsi di file HPP), sehingga semua hasil batch dihitung dalam pcs.
+
+Kebutuhan fungsional tambahan: FR-14 (M) kategori pada transaksi pengeluaran; FR-25 (M) tanda Pelanggan Tetap dan pembatasan metode Belum Dibayar; FR-46 (M) butir "QRIS belum cair" dan "Modal Kembalian" di Tutup Kas.
+
+**Dasar pencatatan laporan (hasil review prototype, 10 Okt 2026).** Dashboard, Laporan Keuangan (PDF), dan Laba Rugi memakai dasar transaksi (accrual), sehingga total pemasukan Agustus 2026 sebesar Rp4.541.000 sama dengan Bookbot dan sudah memuat piutang Rp670.000. Hanya Arus Kas yang memakai dasar pembayaran (pemasukan terbayar Rp3.871.000, pengeluaran terbayar Rp60.000, arus bersih Rp3.811.000). Saldo kas di Dashboard mengikuti angka Arus Kas. Parameter overhead produksi sudah termasuk dalam HPP produk dan tidak ditambahkan lagi.
+
+**Urutan dependensi addon (revisi implementasi, menggantikan tabel Bagian 5).** Arah dependensi adalah genresi\_base, lalu genresi\_stock, lalu genresi\_cash, lalu genresi\_report. genresi\_stock berdiri di bawah genresi\_cash (bukan sebaliknya) agar tidak terjadi dependensi melingkar, karena Transaksi merujuk ke Bahan Baku dan Tutup Kas merujuk ke Produk.
