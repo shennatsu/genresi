@@ -10,6 +10,12 @@
     "data": [
         "security/ir.model.access.csv",
         "data/sequence.xml",
+        "wizard/stock_adjustment_views.xml",
+        "views/material_views.xml",
+        "views/stock_move_views.xml",
+        "views/recipe_views.xml",
+        "views/product_views.xml",
+        "views/production_views.xml",
     ],
     "installable": True,
     "application": True,

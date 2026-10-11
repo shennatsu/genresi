@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_product_list" model="ir.ui.view">
+        <field name="name">genresi.product.list</field>
+        <field name="model">genresi.product</field>
+        <field name="arch" type="xml">
+            <tree string="Produk">
+                <field name="name"/>
+                <field name="business_line_id"/>
+                <field name="sale_price" widget="monetary"/>
+                <field name="hpp_per_piece" widget="monetary"/>
+                <field name="margin" widget="monetary"/>
+                <field name="has_incomplete_cost" widget="boolean"/>
+                <field name="state" widget="badge"/>
+            </tree>
+        </field>
+    </record>
+    <record id="view_product_form" model="ir.ui.view">
+        <field name="name">genresi.product.form</field>
+        <field name="model">genresi.product</field>
+        <field name="arch" type="xml">
+            <form string="Produk">
+                <header>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,active,archived"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_view_productions" type="object" class="oe_stat_button" icon="fa-industry">
+                            <field name="production_count" widget="statinfo" string="Produksi"/>
+                        </button>
+                    </div>
+                    <widget name="web_ribbon" title="Harga belum lengkap" bg_color="text-bg-warning"
+                        invisible="not has_incomplete_cost"/>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="business_line_id"/>
+                            <field name="uom_id"/>
+                            <field name="active"/>
+                        </group>
+                        <group>
+                            <field name="sale_price" widget="monetary"/>
+                            <field name="hpp_per_piece" widget="monetary" readonly="1"/>
+                            <field name="margin" widget="monetary" readonly="1"/>
+                            <field name="margin_pct" readonly="1"/>
+                            <field name="has_incomplete_cost" readonly="1"/>
+                            <field name="currency_id" invisible="1"/>
+                        </group>
+                    </group>
+                    <group string="Komponen HPP">
+                        <field name="dough_recipe_id"/>
+                        <field name="filling_recipe_id"/>
+                        <field name="packaging_recipe_id"/>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+    <record id="view_product_search" model="ir.ui.view">
+        <field name="name">genresi.product.search</field>
+        <field name="model">genresi.product</field>
+        <field name="arch" type="xml">
+            <search string="Produk">
+                <field name="name"/>
+                <field name="business_line_id"/>
+                <filter name="incomplete" string="Harga Belum Lengkap" domain="[('has_incomplete_cost', '=', True)]"/>
+                <filter name="active" string="Aktif" domain="[('active', '=', True)]"/>
+            </search>
+        </field>
+    </record>
+    <record id="action_product" model="ir.actions.act_window">
+        <field name="name">Produk</field>
+        <field name="res_model">genresi.product</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="view_product_search"/>
+    </record>
+    <menuitem id="menu_product" name="Produk"
+        parent="genresi_base.genresi_menu_stock" action="action_product"
+        groups="genresi_base.group_genresi_viewer" sequence="40"/>
+</odoo>

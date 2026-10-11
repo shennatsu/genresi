@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_stock_move_list" model="ir.ui.view">
+        <field name="name">genresi.stock.move.list</field>
+        <field name="model">genresi.stock.move</field>
+        <field name="arch" type="xml">
+            <tree string="Pergerakan Stok">
+                <field name="date"/>
+                <field name="material_id"/>
+                <field name="move_type"/>
+                <field name="quantity"/>
+                <field name="signed_quantity"/>
+                <field name="uom_id"/>
+                <field name="reference"/>
+                <field name="note"/>
+            </tree>
+        </field>
+    </record>
+    <record id="view_stock_move_form" model="ir.ui.view">
+        <field name="name">genresi.stock.move.form</field>
+        <field name="model">genresi.stock.move</field>
+        <field name="arch" type="xml">
+            <form string="Pergerakan Stok">
+                <sheet>
+                    <group>
+                        <field name="material_id"/>
+                        <field name="date"/>
+                        <field name="move_type"/>
+                        <field name="quantity"/>
+                        <field name="uom_id"/>
+                        <field name="reference"/>
+                        <field name="note"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="action_stock_move" model="ir.actions.act_window">
+        <field name="name">Pergerakan Stok</field>
+        <field name="res_model">genresi.stock.move</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <menuitem id="menu_stock_move" name="Pergerakan Stok"
+        parent="genresi_base.genresi_menu_stock" action="action_stock_move"
+        groups="genresi_base.group_genresi_viewer" sequence="20"/>
+</odoo>

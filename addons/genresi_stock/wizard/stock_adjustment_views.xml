@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_stock_adjustment_form" model="ir.ui.view">
+        <field name="name">genresi.stock.adjustment.form</field>
+        <field name="model">genresi.stock.adjustment</field>
+        <field name="arch" type="xml">
+            <form string="Penyesuaian Stok">
+                <group>
+                    <field name="material_id"/>
+                    <field name="date"/>
+                    <field name="quantity"/>
+                    <field name="reason"/>
+                </group>
+                <footer>
+                    <button name="action_apply" string="Terapkan" type="object" class="btn-primary"/>
+                    <button string="Batal" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+    <record id="action_stock_adjustment_wizard" model="ir.actions.act_window">
+        <field name="name">Penyesuaian Stok</field>
+        <field name="res_model">genresi.stock.adjustment</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+    <menuitem id="menu_stock_adjustment" name="Penyesuaian Stok"
+        parent="genresi_base.genresi_menu_stock" action="action_stock_adjustment_wizard"
+        groups="genresi_base.group_genresi_staf" sequence="50"/>
+</odoo>

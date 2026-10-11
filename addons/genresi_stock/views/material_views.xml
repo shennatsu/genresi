@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_material_kanban" model="ir.ui.view">
+        <field name="name">genresi.material.kanban</field>
+        <field name="model">genresi.material</field>
+        <field name="arch" type="xml">
+            <kanban class="o_kanban_mobile">
+                <field name="name"/>
+                <field name="stock_qty"/>
+                <field name="min_stock"/>
+                <field name="stock_state"/>
+                <field name="uom_id"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click">
+                            <div class="o_kanban_record_top">
+                                <strong><field name="name"/></strong>
+                                <t t-if="record.stock_state.raw_value == 'critical'">
+                                    <span class="badge text-bg-danger">Kritis</span>
+                                </t>
+                            </div>
+                            <div>Stok: <field name="stock_qty"/> <field name="uom_id"/></div>
+                            <div>Minimum: <field name="min_stock"/></div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+    <record id="view_material_list" model="ir.ui.view">
+        <field name="name">genresi.material.list</field>
+        <field name="model">genresi.material</field>
+        <field name="arch" type="xml">
+            <tree string="Bahan Baku" decoration-danger="stock_state == 'critical'">
+                <field name="name"/>
+                <field name="uom_id"/>
+                <field name="price_per_unit" widget="monetary"/>
+                <field name="stock_qty"/>
+                <field name="min_stock"/>
+                <field name="stock_state" widget="badge"/>
+            </tree>
+        </field>
+    </record>
+    <record id="view_material_form" model="ir.ui.view">
+        <field name="name">genresi.material.form</field>
+        <field name="model">genresi.material</field>
+        <field name="arch" type="xml">
+            <form string="Bahan Baku">
+                <header>
+                    <button name="%(action_stock_adjustment_wizard)d" type="action"
+                        string="Penyesuaian Stok" class="btn-primary"
+                        context="{'default_material_id': id}"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="uom_id"/>
+                            <field name="price_per_unit" widget="monetary"/>
+                        </group>
+                        <group>
+                            <field name="min_stock"/>
+                            <field name="pack_size"/>
+                            <field name="stock_qty" readonly="1"/>
+                            <field name="stock_state" widget="badge" readonly="1"/>
+                            <field name="currency_id" invisible="1"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Pergerakan Stok">
+                            <field name="stock_move_ids" readonly="1">
+                                <tree>
+                                    <field name="date"/>
+                                    <field name="move_type"/>
+                                    <field name="quantity"/>
+                                    <field name="signed_quantity"/>
+                                    <field name="reference"/>
+                                    <field name="note"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="view_material_search" model="ir.ui.view">
+        <field name="name">genresi.material.search</field>
+        <field name="model">genresi.material</field>
+        <field name="arch" type="xml">
+            <search string="Bahan Baku">
+                <field name="name"/>
+                <filter name="critical" string="Stok Kritis" domain="[('stock_state', '=', 'critical')]"/>
+            </search>
+        </field>
+    </record>
+    <record id="action_material" model="ir.actions.act_window">
+        <field name="name">Bahan Baku</field>
+        <field name="res_model">genresi.material</field>
+        <field name="view_mode">kanban,tree,form</field>
+        <field name="search_view_id" ref="view_material_search"/>
+    </record>
+    <menuitem id="menu_material" name="Bahan Baku"
+        parent="genresi_base.genresi_menu_stock" action="action_material"
+        groups="genresi_base.group_genresi_viewer" sequence="10"/>
+</odoo>

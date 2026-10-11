@@ -94,6 +94,28 @@ class TestGenresiStock(TransactionCase):
             -5,
         )
 
+    def test_stock_actions_and_menus_are_connected(self):
+        """Stock actions must be available below the configured Stok menu."""
+        stock_menu = self.env.ref("genresi_base.genresi_menu_stock")
+        viewer = self.env.ref("genresi_base.group_genresi_viewer")
+        staf = self.env.ref("genresi_base.group_genresi_staf")
+        menu_actions = {
+            "genresi_stock.menu_material": "genresi_stock.action_material",
+            "genresi_stock.menu_stock_move": "genresi_stock.action_stock_move",
+            "genresi_stock.menu_recipe": "genresi_stock.action_recipe",
+            "genresi_stock.menu_product": "genresi_stock.action_product",
+            "genresi_stock.menu_production": "genresi_stock.action_production",
+            "genresi_stock.menu_stock_adjustment": "genresi_stock.action_stock_adjustment_wizard",
+        }
+
+        for menu_xmlid, action_xmlid in menu_actions.items():
+            menu = self.env.ref(menu_xmlid)
+            action = self.env.ref(action_xmlid)
+            self.assertEqual(menu.action, action)
+            self.assertEqual(menu.parent_id, stock_menu)
+            expected_group = staf if menu_xmlid.endswith("stock_adjustment") else viewer
+            self.assertIn(expected_group, menu.groups_id)
+
     def test_hpp_matches_workbook_reference(self):
         """The Keju Bungasari HPP must match the workbook's reference amount."""
         dough_materials = [
