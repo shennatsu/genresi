@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="sequence_genresi_production" model="ir.sequence">
+        <field name="name">Produksi Harian Genresi</field>
+        <field name="code">genresi.production</field>
+        <field name="prefix">PRD/%(year)s/%(month)s/</field>
+        <field name="padding">4</field>
+        <field name="implementation">no_gap</field>
+    </record>
+</odoo>

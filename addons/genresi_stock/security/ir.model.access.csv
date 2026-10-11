@@ -1,0 +1,14 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_material_viewer,material.viewer,model_genresi_material,genresi_base.group_genresi_viewer,1,0,0,0
+access_material_owner,material.owner,model_genresi_material,genresi_base.group_genresi_owner,1,1,1,1
+access_stock_move_viewer,stock.move.viewer,model_genresi_stock_move,genresi_base.group_genresi_viewer,1,0,0,0
+access_stock_move_owner,stock.move.owner,model_genresi_stock_move,genresi_base.group_genresi_owner,1,1,1,1
+access_recipe_viewer,recipe.viewer,model_genresi_recipe,genresi_base.group_genresi_viewer,1,0,0,0
+access_recipe_owner,recipe.owner,model_genresi_recipe,genresi_base.group_genresi_owner,1,1,1,1
+access_recipe_line_viewer,recipe.line.viewer,model_genresi_recipe_line,genresi_base.group_genresi_viewer,1,0,0,0
+access_recipe_line_owner,recipe.line.owner,model_genresi_recipe_line,genresi_base.group_genresi_owner,1,1,1,1
+access_product_viewer,product.viewer,model_genresi_product,genresi_base.group_genresi_viewer,1,0,0,0
+access_product_owner,product.owner,model_genresi_product,genresi_base.group_genresi_owner,1,1,1,1
+access_production_viewer,production.viewer,model_genresi_production,genresi_base.group_genresi_viewer,1,0,0,0
+access_production_staf,production.staf,model_genresi_production,genresi_base.group_genresi_staf,1,1,1,1
+access_stock_adjustment_staf,stock.adjustment.staf,model_genresi_stock_adjustment,genresi_base.group_genresi_staf,1,1,1,1

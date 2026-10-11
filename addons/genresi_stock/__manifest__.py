@@ -7,7 +7,10 @@
     "website": "https://github.com/shennatsu/genresi",
     "license": "LGPL-3",
     "depends": ["genresi_base"],
-    "data": [],
+    "data": [
+        "security/ir.model.access.csv",
+        "data/sequence.xml",
+    ],
     "installable": True,
     "application": True,
 }
