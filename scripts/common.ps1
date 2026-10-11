@@ -136,6 +136,30 @@ print("Genresi admin password synchronized.")
     Invoke-GenresiOdooShell -Database $Database -Code $code
 }
 
+function Set-GenresiThemeColors {
+    param(
+        [Parameter(Mandatory = $true)]
+        [string]$Database
+    )
+
+    $code = @'
+settings = env["res.config.settings"].create({
+    "color_brand_light": "#A85A14",
+    "color_primary_light": "#A85A14",
+    "color_brand_dark": "#A85A14",
+    "color_primary_dark": "#A85A14",
+    "theme_color_appsmenu_text": "#FFFFFF",
+    "theme_color_appbar_text": "#FFFFFF",
+    "theme_color_appbar_active": "#A85A14",
+    "theme_color_appbar_background": "#A85A14",
+})
+settings.set_values()
+env.cr.commit()
+print("Genresi MuK theme colors synchronized.")
+'@
+    Invoke-GenresiOdooShell -Database $Database -Code $code
+}
+
 function Invoke-GenresiPostgres {
     param(
         [Parameter(Mandatory = $true)]

@@ -6,7 +6,7 @@
     "author": "CV Generasi Restu Ibu",
     "website": "https://github.com/shennatsu/genresi",
     "license": "LGPL-3",
-    "depends": ["base", "mail", "uom"],
+    "depends": ["base", "mail", "uom", "muk_web_theme"],
     "data": [
         "security/genresi_security.xml",
         "data/company_branding.xml",
@@ -20,6 +20,9 @@
         "web.assets_backend": [
             "genresi_base/static/src/scss/branding.scss",
             "genresi_base/static/src/xml/navbar.xml",
+        ],
+        "web.assets_frontend": [
+            "genresi_base/static/src/scss/branding.scss",
         ],
     },
     "installable": True,

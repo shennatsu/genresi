@@ -4,14 +4,14 @@ repos:
     hooks:
       - id: ruff
         args: [--fix]
-        exclude: __manifest__\.py$
+        exclude: (^|/)third_party/muk/|__manifest__\.py$
       - id: ruff-format
-        exclude: __manifest__\.py$
+        exclude: (^|/)third_party/muk/|__manifest__\.py$
   - repo: https://github.com/oca/pylint-odoo
     rev: v9.0.0
     hooks:
       - id: pylint_odoo
-        exclude: __manifest__\.py$
+        exclude: (^|/)third_party/muk/|__manifest__\.py$
         additional_dependencies:
           - Pillow==11.1.0
         args:

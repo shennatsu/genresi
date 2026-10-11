@@ -19,6 +19,8 @@ if (-not (Test-GenresiDatabase -Database $database)) {
     }
 }
 
-$modules = 'genresi_base,genresi_stock,genresi_cash,genresi_report,genresi_demo'
+$modules = 'muk_web_appsbar,muk_web_chatter,muk_web_colors,muk_web_dialog,muk_web_theme,genresi_base,genresi_stock,genresi_cash,genresi_report,genresi_demo'
 Invoke-GenresiOdoo -Arguments @('-d', $database, '-i', $modules, '-u', $modules, '--without-demo=all', '--skip-auto-install', '--no-http', '--stop-after-init')
+Set-GenresiThemeColors -Database $database
+Invoke-GenresiOdoo -Arguments @('-d', $database, '-u', $modules, '--without-demo=all', '--skip-auto-install', '--no-http', '--stop-after-init')
 Sync-GenresiAdminPassword -Database $database

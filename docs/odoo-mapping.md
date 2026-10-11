@@ -4,9 +4,15 @@ Dokumen ini memetakan seluruh kebutuhan fungsional PRD v1.1 ke komponen Odoo yan
 tersedia pada edisi Community. Fase 0B hanya menyiapkan fondasi; model bisnis dan
 aksi menu akan ditambahkan pada fase berikutnya.
 
+Fondasi UI menggunakan `muk_web_theme` dan dependensi LGPL-3 vendored resmi MuK:
+`muk_web_appsbar`, `muk_web_chatter`, `muk_web_colors`, dan `muk_web_dialog`.
+Modul terpasang yang diizinkan tetap terbatas pada `base`, `mail`, `uom`, `board`,
+`muk_*`, `genresi_*`, serta dependensi teknis langsungnya. Tidak ada modul bisnis
+MuK lain yang dipasang.
+
 | ID | Fitur PRD v1.1 | Komponen Odoo / alternatif | Kategori | Butuh Enterprise? |
 | --- | --- | --- | --- | --- |
-| FR-01 | Login Odoo dan tiga role Owner, Staf, Viewer | `res.users`, `res.groups`, `ir.ui.menu`; implied groups kustom | Sedikit kustom | Tidak |
+| FR-01 | Login Odoo dan tiga role Owner, Staf, Viewer | `res.users`, `res.groups`, `ir.ui.menu`; implied groups kustom; `muk_web_theme` + `muk_web_appsbar` untuk sidebar | Sedikit kustom | Tidak |
 | FR-02 | CRUD Lini Bisnis dan Penjual | Model kustom, form/list view, access CSV, record rule | Sedikit kustom | Tidak |
 | FR-10 | CRUD Transaksi dengan total `qty x harga` | Model kustom `genresi.transaction`, computed stored field, form/list view | Sedikit kustom | Tidak |
 | FR-11 | Impor riwayat dari CSV Google Sheets | Import CSV native Odoo dan mapping field | Native | Tidak |

@@ -1,19 +1,46 @@
 // Genresi keeps Odoo Community tokens and overrides only the brand palette.
+$o-community-color: #A85A14;
 $o-brand-odoo: #D67C25;
 $o-brand-primary: #A85A14;
 $o-brand-secondary: #E2A165;
 $o-brand-lightsecondary: #FBEEDD;
 $o-action: #A85A14;
-$o-main-link-color: #8A4A10;
+$o-main-link-color: #A85A14;
 $o-component-active-bg: #FBEEDD;
+$o-component-active-border: #A85A14;
+$o-component-active-color: #8A4A10;
 
-$o-navbar-background: #D67C25;
+$primary: #A85A14;
+$link-color: #A85A14;
+
+$o-navbar-background: #A85A14;
 $o-navbar-border-bottom: 1px solid #8A4A10;
-$o-navbar-entry-bg--hover: rgba($o-black, .12);
+$o-navbar-entry-bg--hover: #8A4A10;
+
+$mk_color_appsmenu_text: #FFFFFF;
+$mk_color_appbar_text: #FFFFFF;
+$mk_color_appbar_active: #A85A14;
+$mk_color_appbar_background: #A85A14;
+$mk-appsmenu-color: #FFFFFF;
+$mk-appbar-color: #FFFFFF;
+$mk-appbar-active: #A85A14;
+$mk-appbar-background: #A85A14;
 
 $o-btns-bs-override: map-merge($o-btns-bs-override, (
     "primary": map-merge(map-get($o-btns-bs-override, "primary"), (
+        background: #A85A14,
+        border: #A85A14,
+        color: $o-white,
         hover-background: #8A4A10,
         hover-border: #8A4A10,
+        hover-color: $o-white,
+        active-background: #8A4A10,
+        active-border: #8A4A10,
+        active-color: $o-white,
+    )),
+    "secondary": map-merge(map-get($o-btns-bs-override, "secondary"), (
+        active-background: #FBEEDD,
+        active-border: #A85A14,
+        active-color: #8A4A10,
     )),
 ));

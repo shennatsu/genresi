@@ -1,4 +1,4 @@
-"""Build Genresi logo variants from the supplied transparent logo artwork."""
+"""Build Genresi logo variants from docs/logo.png."""
 
 from __future__ import annotations
 
@@ -15,7 +15,7 @@ def parse_args() -> argparse.Namespace:
         "--source",
         type=Path,
         default=Path("docs/logo.png"),
-        help="Full logo source; docs/logobaked.png is the local fallback.",
+        help="Full logo source.",
     )
     parser.add_argument(
         "--output-dir",
@@ -23,17 +23,6 @@ def parse_args() -> argparse.Namespace:
         default=Path("addons/genresi_base/static/src/img"),
     )
     return parser.parse_args()
-
-
-def resolve_source(source: Path) -> Path:
-    """Return the requested source or the checked-in local logo fallback."""
-    if source.exists():
-        return source
-    fallback = Path("docs/logobaked.png")
-    if fallback.exists():
-        print(f"Source {source} tidak ditemukan; memakai {fallback}.")
-        return fallback
-    raise FileNotFoundError(f"Logo source tidak ditemukan: {source} atau {fallback}")
 
 
 def square_icon(image: Image.Image) -> Image.Image:
@@ -56,9 +45,11 @@ def square_icon(image: Image.Image) -> Image.Image:
 
 
 def build_assets(source: Path, output_dir: Path) -> None:
-    """Write the full logo, transparent icon, and favicon."""
+    """Write the full logo, sidebar logo, transparent icon, and favicon."""
     output_dir.mkdir(parents=True, exist_ok=True)
-    with Image.open(resolve_source(source)) as opened:
+    if not source.exists():
+        raise FileNotFoundError(f"Logo source tidak ditemukan: {source}")
+    with Image.open(source) as opened:
         logo = opened.convert("RGBA")
     alpha_box = logo.getchannel("A").getbbox()
     if alpha_box is None:
@@ -66,6 +57,12 @@ def build_assets(source: Path, output_dir: Path) -> None:
     full_logo = logo.crop(alpha_box)
     icon = square_icon(logo)
     full_logo.save(output_dir / "genresi_logo.png", optimize=True)
+    sidebar_width = 140
+    sidebar_height = round(full_logo.height * sidebar_width / full_logo.width)
+    sidebar_logo = full_logo.resize((sidebar_width, sidebar_height), Image.Resampling.LANCZOS)
+    sidebar_canvas = Image.new("RGBA", sidebar_logo.size, (255, 255, 255, 255))
+    sidebar_canvas.alpha_composite(sidebar_logo)
+    sidebar_canvas.save(output_dir / "genresi_sidebar_logo.png", optimize=True)
     icon.save(output_dir / "genresi_icon.png", optimize=True)
     icon.resize((64, 64), Image.Resampling.LANCZOS).save(output_dir / "genresi_favicon.ico")
     print(f"Logo dibuat di {output_dir.resolve()}")

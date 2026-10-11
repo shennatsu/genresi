@@ -13,7 +13,10 @@
 ## Stack dan batas UI
 
 - Stack utama: Python dan XML untuk model, view, menu, security, data, cron, dan report QWeb PDF.
-- Dilarang memakai JS/OWL, halaman QWeb/website custom, CSS besar, navbar sendiri, atau layout sendiri.
+- Dilarang menulis JS/OWL sendiri, halaman QWeb/website custom, CSS besar, navbar
+  sendiri, atau layout sendiri. `muk_*` adalah satu-satunya dependensi pihak ketiga
+  yang diizinkan; JS/OWL di dalamnya dipakai tanpa modifikasi sebagai pengecualian
+  yang disetujui pengguna.
 - SCSS hanya boleh kecil untuk branding dan harus meng-override token Odoo yang sudah ada.
 - Jika kebutuhan tidak bisa dipenuhi secara native Odoo Community, jelaskan alasannya dan tunggu persetujuan sebelum membuat kustomisasi.
 
@@ -47,7 +50,7 @@ Fase awal hanya membuat skeleton installable; jangan menambahkan model bisnis pl
 
 ## Data, uang, tanggal, dan cron
 
-- Seed master ada di `data/`; data contoh ada di `demo/` dengan tanggal tetap Agustus 2026.
+- Seed master ada di `data/`; data contoh ada di `genresi_demo/data/` dengan tanggal tetap Agustus 2026.
 - Sediakan satu helper “hari ini” yang membaca `ir.config_parameter` bernama `genresi.demo_today`. Helper ini dipakai cron, jatuh tempo, dan dashboard.
 - Semua nilai uang menggunakan `fields.Monetary` dan mata uang IDR.
 - Satuan bahan yang didukung: gram, pcs, dan biji.
@@ -59,6 +62,12 @@ Fase awal hanya membuat skeleton installable; jangan menambahkan model bisnis pl
 ## Dependensi dan alur kerja
 
 - Arah dependensi addon: `genresi_base <- genresi_stock <- genresi_cash <- genresi_report`.
+- Modul terpasang yang diizinkan adalah `base`, `mail`, `uom`, `board`, `muk_*`,
+  dan `genresi_*`, termasuk dependensi teknis langsungnya; tidak boleh ada aplikasi
+  bisnis lain.
+- Di Odoo 17, `board` membawa `spreadsheet_dashboard` lalu `spreadsheet` sebagai
+  dependensi teknis; keduanya boleh muncul tetapi bukan fitur bisnis yang dipakai.
+- Dependensi MuK divendorkan di `third_party/muk` dan `addons_path` menunjuk ke sana.
 - Dependensi core hanya `base`, `mail`, dan `uom`; `board` hanya boleh menjadi dependensi `genresi_report`.
 - `genresi_demo` bersifat opsional, bergantung pada `genresi_report`, dan `auto_install=False`.
 - Instalasi database wajib memakai `--without-demo=all` dan `--skip-auto-install`.

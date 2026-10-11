@@ -2,7 +2,7 @@
 <odoo>
     <template id="web_layout_favicon" inherit_id="web.layout">
         <xpath expr="//link[@rel='shortcut icon']" position="attributes">
-            <attribute name="t-att-href">x_icon or '/genresi_base/static/src/img/genresi_favicon.ico'</attribute>
+            <attribute name="t-att-href">x_icon or '/web/image/res.company/%s/favicon' % request.env.company.id</attribute>
         </xpath>
     </template>
 
@@ -10,6 +10,10 @@
         <xpath expr="//img[contains(@t-attf-src, '/web/binary/company_logo')]" position="attributes">
             <attribute name="t-attf-src">/genresi_base/static/src/img/genresi_logo.png</attribute>
         </xpath>
+        <xpath expr="//t[@t-set='no_footer']" position="after">
+            <t t-set="title">Genresi</t>
+        </xpath>
+        <xpath expr="//a[contains(@href, 'odoo.com?utm_source=db')]" position="replace"/>
     </template>
 
     <template id="web_external_layout_branding" inherit_id="web.external_layout_standard">

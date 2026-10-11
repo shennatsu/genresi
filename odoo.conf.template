@@ -1,5 +1,5 @@
 [options]
-addons_path = ./addons
+addons_path = ./addons,./third_party/muk
 admin_passwd = __ODOO_ADMIN_PASSWD__
 db_host = __PGHOST__
 db_port = __PGPORT__

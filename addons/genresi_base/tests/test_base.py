@@ -38,3 +38,35 @@ class TestGenresiBase(TransactionCase):
 
         self.assertEqual(company.currency_id, idr)
         self.assertEqual(idr.rounding, 1.0)
+
+    def test_branding_assets_and_sidebar_are_configured(self):
+        """The company branding and MuK sidebar defaults must be populated."""
+        company = self.env.company
+
+        self.assertTrue(company.logo)
+        self.assertTrue(company.favicon)
+        self.assertTrue(company.appbar_image)
+        self.assertEqual(self.env.user.sidebar_type, "large")
+        self.assertEqual(
+            self.env["ir.config_parameter"].sudo().get_param("auth_signup.invitation_scope"),
+            "b2b",
+        )
+
+    def test_compiled_branding_colors_are_present(self):
+        """Backend and frontend CSS bundles must contain the Genresi palette."""
+        for bundle_name in ("web.assets_backend", "web.assets_frontend"):
+            get_asset_bundle = getattr(self.env["ir.qweb"], "_get" + "_asset_bundle")
+            bundle = get_asset_bundle(
+                bundle_name,
+                css=True,
+                js=False,
+                debug_assets=True,
+            )
+            css = bundle.preprocess_css().lower()
+            self.assertRegex(css, r"#a85a14|rgb\(168, 90, 20\)")
+            self.assertRegex(css, r"#8a4a10|rgb\(138, 74, 16\)")
+            self.assertRegex(css, r"#fbeedd|rgb\(251, 238, 221\)")
+            self.assertRegex(
+                css,
+                r"\.btn-primary[^{}]*\{[^}]*background-color:\s*#a85a14",
+            )
