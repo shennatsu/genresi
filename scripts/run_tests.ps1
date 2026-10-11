@@ -20,4 +20,4 @@ if (-not (Test-GenresiDatabase -Database $database)) {
 }
 
 $modules = 'genresi_base,genresi_stock,genresi_cash,genresi_report'
-Invoke-GenresiOdoo -Arguments @('-d', $database, '-i', $modules, '--test-enable', '--test-tags', '/genresi', '--stop-after-init')
+Invoke-GenresiOdoo -Arguments @('-d', $database, '-i', $modules, '--without-demo=all', '--skip-auto-install', '--test-enable', '--test-tags', '/genresi', '--stop-after-init')

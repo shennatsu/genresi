@@ -20,5 +20,5 @@ if (-not (Test-GenresiDatabase -Database $database)) {
 }
 
 $modules = 'genresi_base,genresi_stock,genresi_cash,genresi_report'
-Invoke-GenresiOdoo -Arguments @('-d', $database, '-i', $modules, '-u', $modules, '--stop-after-init')
+Invoke-GenresiOdoo -Arguments @('-d', $database, '-i', $modules, '-u', $modules, '--without-demo=all', '--skip-auto-install', '--stop-after-init')
 Sync-GenresiAdminPassword -Database $database
