@@ -10,6 +10,9 @@
     "data": [
         "security/ir.model.access.csv",
         "data/sequence.xml",
+        "data/materials.xml",
+        "data/recipes.xml",
+        "data/products.xml",
         "wizard/stock_adjustment_views.xml",
         "views/material_views.xml",
         "views/stock_move_views.xml",

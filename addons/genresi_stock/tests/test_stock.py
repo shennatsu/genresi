@@ -166,6 +166,14 @@ class TestGenresiStock(TransactionCase):
         self.assertAlmostEqual(product.hpp_per_piece, 14202.734662347106, delta=0.000001)
         self.assertAlmostEqual(product.margin, 10797.265337652894, delta=0.000001)
 
+    def test_generated_hpp_seed_matches_workbook_reference(self):
+        """Generated master data must load with the Natural Keju HPP reference."""
+        ragi = self.env.ref("genresi_stock.material_ragi")
+        product = self.env.ref("genresi_stock.product_keju_natural")
+
+        self.assertEqual(ragi.price_per_unit, 107)
+        self.assertAlmostEqual(product.hpp_per_piece, 13505.234662347106, delta=0.000001)
+
     def test_production_consumes_recipe_quantity_and_warns_without_blocking(self):
         """Production scales batch quantities and confirms even with insufficient stock."""
         material = self._material("Bahan Produksi Uji", 15)

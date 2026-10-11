@@ -1,0 +1,72 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <record id="product_original_bungasari" model="genresi.product">
+        <field name="name">Roti Original - Adonan Bungasari</field>
+        <field name="dough_recipe_id" ref="recipe_dough_bungasari" />
+        <field name="packaging_recipe_id" ref="recipe_packaging" />
+        <field name="sale_price">20000</field>
+        <field name="active">False</field>
+        <field name="state">archived</field>
+    </record>
+    <record id="product_original_natural" model="genresi.product">
+        <field name="name">Roti Original - Adonan Natural</field>
+        <field name="dough_recipe_id" ref="recipe_dough_natural" />
+        <field name="packaging_recipe_id" ref="recipe_packaging" />
+        <field name="sale_price">20000</field>
+    </record>
+    <record id="product_keju_bungasari" model="genresi.product">
+        <field name="name">Roti Keju - Adonan Bungasari</field>
+        <field name="dough_recipe_id" ref="recipe_dough_bungasari" />
+        <field name="filling_recipe_id" ref="recipe_filling_keju" />
+        <field name="packaging_recipe_id" ref="recipe_packaging" />
+        <field name="sale_price">25000</field>
+        <field name="active">False</field>
+        <field name="state">archived</field>
+    </record>
+    <record id="product_keju_natural" model="genresi.product">
+        <field name="name">Roti Keju - Adonan Natural</field>
+        <field name="dough_recipe_id" ref="recipe_dough_natural" />
+        <field name="filling_recipe_id" ref="recipe_filling_keju" />
+        <field name="packaging_recipe_id" ref="recipe_packaging" />
+        <field name="sale_price">25000</field>
+    </record>
+    <record id="product_daging_bungasari" model="genresi.product">
+        <field name="name">Roti Daging - Adonan Bungasari</field>
+        <field name="dough_recipe_id" ref="recipe_dough_bungasari" />
+        <field name="filling_recipe_id" ref="recipe_filling_daging" />
+        <field name="packaging_recipe_id" ref="recipe_packaging" />
+        <field name="sale_price">35000</field>
+        <field name="active">False</field>
+        <field name="state">archived</field>
+    </record>
+    <record id="product_daging_natural" model="genresi.product">
+        <field name="name">Roti Daging - Adonan Natural</field>
+        <field name="dough_recipe_id" ref="recipe_dough_natural" />
+        <field name="filling_recipe_id" ref="recipe_filling_daging" />
+        <field name="packaging_recipe_id" ref="recipe_packaging" />
+        <field name="sale_price">35000</field>
+    </record>
+    <record id="product_coklat_bungasari" model="genresi.product">
+        <field name="name">Roti Coklat - Adonan Bungasari</field>
+        <field name="dough_recipe_id" ref="recipe_dough_bungasari" />
+        <field name="filling_recipe_id" ref="recipe_filling_coklat" />
+        <field name="packaging_recipe_id" ref="recipe_packaging" />
+        <field name="sale_price">25000</field>
+        <field name="active">False</field>
+        <field name="state">archived</field>
+    </record>
+    <record id="product_coklat_natural" model="genresi.product">
+        <field name="name">Roti Coklat - Adonan Natural</field>
+        <field name="dough_recipe_id" ref="recipe_dough_natural" />
+        <field name="filling_recipe_id" ref="recipe_filling_coklat" />
+        <field name="packaging_recipe_id" ref="recipe_packaging" />
+        <field name="sale_price">25000</field>
+    </record>
+    <record id="product_srikaya_natural" model="genresi.product">
+        <field name="name">Roti Srikaya - Adonan Natural</field>
+        <field name="dough_recipe_id" ref="recipe_dough_natural" />
+        <field name="filling_recipe_id" ref="recipe_filling_srikaya" />
+        <field name="packaging_recipe_id" ref="recipe_packaging" />
+        <field name="sale_price">0</field>
+    </record>
+</odoo>

@@ -1,0 +1,161 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <record id="recipe_dough_bungasari" model="genresi.recipe">
+        <field name="name">Adonan Bungasari</field>
+        <field name="recipe_type">dough</field>
+        <field name="batch_output_qty">8</field>
+        <field name="active">False</field>
+        <field name="state">archived</field>
+    </record>
+    <record id="recipe_dough_bungasari_line_flour" model="genresi.recipe.line">
+        <field name="recipe_id" ref="recipe_dough_bungasari" />
+        <field name="material_id" ref="material_whole_wheat_bungasari" />
+        <field name="quantity">300</field>
+    </record>
+    <record id="recipe_dough_bungasari_line_terigu" model="genresi.recipe.line">
+        <field name="recipe_id" ref="recipe_dough_bungasari" />
+        <field name="material_id" ref="material_terigu_golden_eagle" />
+        <field name="quantity">1200</field>
+    </record>
+    <record id="recipe_dough_bungasari_line_ragi" model="genresi.recipe.line">
+        <field name="recipe_id" ref="recipe_dough_bungasari" />
+        <field name="material_id" ref="material_ragi" />
+        <field name="quantity">30</field>
+    </record>
+    <record id="recipe_dough_bungasari_line_gula" model="genresi.recipe.line">
+        <field name="recipe_id" ref="recipe_dough_bungasari" />
+        <field name="material_id" ref="material_gula" />
+        <field name="quantity">200</field>
+    </record>
+    <record id="recipe_dough_bungasari_line_telor" model="genresi.recipe.line">
+        <field name="recipe_id" ref="recipe_dough_bungasari" />
+        <field name="material_id" ref="material_telor" />
+        <field name="quantity">180</field>
+    </record>
+    <record id="recipe_dough_bungasari_line_mother" model="genresi.recipe.line">
+        <field name="recipe_id" ref="recipe_dough_bungasari" />
+        <field name="material_id" ref="material_mother_choice" />
+        <field name="quantity">225</field>
+    </record>
+    <record id="recipe_dough_bungasari_line_garam" model="genresi.recipe.line">
+        <field name="recipe_id" ref="recipe_dough_bungasari" />
+        <field name="material_id" ref="material_garam" />
+        <field name="quantity">26</field>
+    </record>
+    <record id="recipe_dough_natural" model="genresi.recipe">
+        <field name="name">Adonan Natural</field>
+        <field name="recipe_type">dough</field>
+        <field name="batch_output_qty">8</field>
+    </record>
+    <record id="recipe_dough_natural_line_flour" model="genresi.recipe.line">
+        <field name="recipe_id" ref="recipe_dough_natural" />
+        <field name="material_id" ref="material_whole_wheat_natural" />
+        <field name="quantity">300</field>
+    </record>
+    <record id="recipe_dough_natural_line_terigu" model="genresi.recipe.line">
+        <field name="recipe_id" ref="recipe_dough_natural" />
+        <field name="material_id" ref="material_terigu_golden_eagle" />
+        <field name="quantity">1200</field>
+    </record>
+    <record id="recipe_dough_natural_line_ragi" model="genresi.recipe.line">
+        <field name="recipe_id" ref="recipe_dough_natural" />
+        <field name="material_id" ref="material_ragi" />
+        <field name="quantity">30</field>
+    </record>
+    <record id="recipe_dough_natural_line_gula" model="genresi.recipe.line">
+        <field name="recipe_id" ref="recipe_dough_natural" />
+        <field name="material_id" ref="material_gula" />
+        <field name="quantity">200</field>
+    </record>
+    <record id="recipe_dough_natural_line_telor" model="genresi.recipe.line">
+        <field name="recipe_id" ref="recipe_dough_natural" />
+        <field name="material_id" ref="material_telor" />
+        <field name="quantity">180</field>
+    </record>
+    <record id="recipe_dough_natural_line_mother" model="genresi.recipe.line">
+        <field name="recipe_id" ref="recipe_dough_natural" />
+        <field name="material_id" ref="material_mother_choice" />
+        <field name="quantity">225</field>
+    </record>
+    <record id="recipe_dough_natural_line_garam" model="genresi.recipe.line">
+        <field name="recipe_id" ref="recipe_dough_natural" />
+        <field name="material_id" ref="material_garam" />
+        <field name="quantity">26</field>
+    </record>
+    <record id="recipe_filling_keju" model="genresi.recipe">
+        <field name="name">Filling Keju</field>
+        <field name="recipe_type">filling</field>
+        <field name="batch_output_qty">15</field>
+    </record>
+    <record id="recipe_filling_keju_line_keju" model="genresi.recipe.line">
+        <field name="recipe_id" ref="recipe_filling_keju" />
+        <field name="material_id" ref="material_keju" />
+        <field name="quantity">300</field>
+    </record>
+    <record id="recipe_filling_keju_line_glaze" model="genresi.recipe.line">
+        <field name="recipe_id" ref="recipe_filling_keju" />
+        <field name="material_id" ref="material_elmer_glaze" />
+        <field name="quantity">500</field>
+    </record>
+    <record id="recipe_filling_keju_line_skm" model="genresi.recipe.line">
+        <field name="recipe_id" ref="recipe_filling_keju" />
+        <field name="material_id" ref="material_skm" />
+        <field name="quantity">100</field>
+    </record>
+    <record id="recipe_filling_daging" model="genresi.recipe">
+        <field name="name">Filling Daging</field>
+        <field name="recipe_type">filling</field>
+        <field name="batch_output_qty">30</field>
+        <field name="additional_cost">10000</field>
+    </record>
+    <record id="recipe_filling_daging_line_daging" model="genresi.recipe.line">
+        <field name="recipe_id" ref="recipe_filling_daging" />
+        <field name="material_id" ref="material_daging" />
+        <field name="quantity">1000</field>
+    </record>
+    <record id="recipe_filling_daging_line_bombay" model="genresi.recipe.line">
+        <field name="recipe_id" ref="recipe_filling_daging" />
+        <field name="material_id" ref="material_bombay" />
+        <field name="quantity">2</field>
+    </record>
+    <record id="recipe_filling_daging_line_kundur" model="genresi.recipe.line">
+        <field name="recipe_id" ref="recipe_filling_daging" />
+        <field name="material_id" ref="material_kundur" />
+        <field name="quantity">500</field>
+    </record>
+    <record id="recipe_filling_coklat" model="genresi.recipe">
+        <field name="name">Filling Coklat</field>
+        <field name="recipe_type">filling</field>
+        <field name="batch_output_qty">16</field>
+    </record>
+    <record id="recipe_filling_coklat_line" model="genresi.recipe.line">
+        <field name="recipe_id" ref="recipe_filling_coklat" />
+        <field name="material_id" ref="material_coklat_ceres" />
+        <field name="quantity">500</field>
+    </record>
+    <record id="recipe_packaging" model="genresi.recipe">
+        <field name="name">Kemasan</field>
+        <field name="recipe_type">packaging</field>
+        <field name="batch_output_qty">1</field>
+    </record>
+    <record id="recipe_packaging_line_lunch_box" model="genresi.recipe.line">
+        <field name="recipe_id" ref="recipe_packaging" />
+        <field name="material_id" ref="material_lunch_box" />
+        <field name="quantity">1</field>
+    </record>
+    <record id="recipe_packaging_line_kresek" model="genresi.recipe.line">
+        <field name="recipe_id" ref="recipe_packaging" />
+        <field name="material_id" ref="material_kresek" />
+        <field name="quantity">1</field>
+    </record>
+    <record id="recipe_filling_srikaya" model="genresi.recipe">
+        <field name="name">Filling Srikaya</field>
+        <field name="recipe_type">filling</field>
+        <field name="batch_output_qty">15</field>
+    </record>
+    <record id="recipe_filling_srikaya_line" model="genresi.recipe.line">
+        <field name="recipe_id" ref="recipe_filling_srikaya" />
+        <field name="material_id" ref="material_selai_srikaya" />
+        <field name="quantity">1</field>
+    </record>
+</odoo>
