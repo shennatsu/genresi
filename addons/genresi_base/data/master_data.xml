@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="uom_genresi_pcs" model="uom.uom">
+        <field name="name">pcs</field>
+        <field name="category_id" ref="uom.product_uom_categ_unit"/>
+        <field name="factor">1</field>
+        <field name="rounding">1</field>
+        <field name="uom_type">smaller</field>
+    </record>
+    <record id="uom_genresi_biji" model="uom.uom">
+        <field name="name">biji</field>
+        <field name="category_id" ref="uom.product_uom_categ_unit"/>
+        <field name="factor">1</field>
+        <field name="rounding">1</field>
+        <field name="uom_type">smaller</field>
+    </record>
+
+    <record id="business_line_reguler" model="genresi.business.line">
+        <field name="name">Reguler</field>
+        <field name="active">True</field>
+    </record>
+    <record id="business_line_sppg" model="genresi.business.line">
+        <field name="name">SPPG</field>
+        <field name="active">False</field>
+    </record>
+
+    <record id="seller_nanda" model="genresi.seller">
+        <field name="name">Nanda</field>
+        <field name="pay_type">fixed</field>
+    </record>
+    <record id="seller_teh_reni" model="genresi.seller">
+        <field name="name">Teh Reni</field>
+        <field name="pay_type">fixed</field>
+    </record>
+
+    <function model="ir.config_parameter" name="set_param" eval="('genresi.overhead_production_per_piece', '1913.567995680438')"/>
+    <function model="ir.config_parameter" name="set_param" eval="('genresi.sales_opex_per_piece', '1155.896843725943')"/>
+    <function model="ir.config_parameter" name="set_param" eval="('genresi.default_due_days', '3')"/>
+</odoo>

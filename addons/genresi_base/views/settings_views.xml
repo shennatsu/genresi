@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_genresi_config_settings" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.genresi</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form" position="inside">
+                <app string="Genresi" name="genresi" groups="genresi_base.group_genresi_owner">
+                    <block title="Parameter Operasional">
+                        <setting string="Overhead produksi per pcs">
+                            <field name="overhead_production_per_piece"/>
+                        </setting>
+                        <setting string="Opex jualan per pcs">
+                            <field name="sales_opex_per_piece"/>
+                        </setting>
+                        <setting string="Default jatuh tempo">
+                            <field name="due_days_default"/>
+                            <span class="text-muted">hari</span>
+                        </setting>
+                        <setting string="Tanggal bisnis contoh" help="Dipakai untuk data dev dan pengujian.">
+                            <field name="demo_today"/>
+                        </setting>
+                    </block>
+                </app>
+            </xpath>
+        </field>
+    </record>
+    <menuitem id="menu_genresi_settings" name="Parameter"
+        parent="genresi_base.genresi_menu_configuration" action="base.res_config_setting_act_window"
+        groups="genresi_base.group_genresi_owner" sequence="40"/>
+</odoo>

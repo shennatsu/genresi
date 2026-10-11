@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_seller_list" model="ir.ui.view">
+        <field name="name">genresi.seller.list</field>
+        <field name="model">genresi.seller</field>
+        <field name="arch" type="xml">
+            <tree string="Penjual">
+                <field name="name"/>
+                <field name="pay_type"/>
+                <field name="commission_pct"/>
+                <field name="active"/>
+            </tree>
+        </field>
+    </record>
+    <record id="view_seller_form" model="ir.ui.view">
+        <field name="name">genresi.seller.form</field>
+        <field name="model">genresi.seller</field>
+        <field name="arch" type="xml">
+            <form string="Penjual">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="pay_type"/>
+                        <field name="commission_pct" invisible="pay_type != 'commission'"/>
+                        <field name="active"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="action_seller" model="ir.actions.act_window">
+        <field name="name">Penjual</field>
+        <field name="res_model">genresi.seller</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <menuitem id="menu_seller" name="Penjual"
+        parent="genresi_base.genresi_menu_configuration" action="action_seller"
+        groups="genresi_base.group_genresi_owner" sequence="20"/>
+</odoo>

@@ -9,8 +9,14 @@
     "depends": ["base", "mail", "uom", "muk_web_theme"],
     "data": [
         "security/genresi_security.xml",
+        "security/ir.model.access.csv",
+        "data/master_data.xml",
         "data/company_branding.xml",
         "data/menu_data.xml",
+        "views/business_line_views.xml",
+        "views/seller_views.xml",
+        "views/partner_views.xml",
+        "views/settings_views.xml",
         "views/branding_templates.xml",
     ],
     "assets": {

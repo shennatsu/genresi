@@ -1,6 +1,10 @@
 """Transaction tests for the Genresi base foundation."""
 
+from datetime import date
+
 from odoo.tests.common import TransactionCase
+
+from ..models.date_utils import genresi_today
 
 
 class TestGenresiBase(TransactionCase):
@@ -32,12 +36,28 @@ class TestGenresiBase(TransactionCase):
             self.assertNotIn(self.env.ref("base.group_user"), menu.groups_id)
 
     def test_company_uses_idr(self):
-        """The main company must use IDR with unit rounding."""
+        """The main company must use IDR with cost precision."""
         company = self.env.company
         idr = self.env.ref("base.IDR")
 
         self.assertEqual(company.currency_id, idr)
-        self.assertEqual(idr.rounding, 1.0)
+        self.assertEqual(idr.rounding, 0.000001)
+
+    def test_operational_parameters_and_business_date(self):
+        """Operational settings and the configured business date must persist."""
+        parameters = self.env["ir.config_parameter"].sudo()
+        parameters.set_param("genresi.demo_today", "2026-08-23")
+
+        self.assertEqual(genresi_today(self.env), date(2026, 8, 23))
+        self.assertEqual(
+            parameters.get_param("genresi.overhead_production_per_piece"),
+            "1913.567995680438",
+        )
+        self.assertEqual(parameters.get_param("genresi.default_due_days"), "3")
+
+        settings = self.env["res.config.settings"].create({"due_days_default": 5})
+        settings.execute()
+        self.assertEqual(parameters.get_param("genresi.default_due_days"), "5")
 
     def test_branding_assets_and_sidebar_are_configured(self):
         """The company branding and MuK sidebar defaults must be populated."""

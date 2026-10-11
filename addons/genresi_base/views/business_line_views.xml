@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_business_line_list" model="ir.ui.view">
+        <field name="name">genresi.business.line.list</field>
+        <field name="model">genresi.business.line</field>
+        <field name="arch" type="xml">
+            <tree string="Lini Bisnis">
+                <field name="name"/>
+                <field name="active"/>
+            </tree>
+        </field>
+    </record>
+    <record id="view_business_line_form" model="ir.ui.view">
+        <field name="name">genresi.business.line.form</field>
+        <field name="model">genresi.business.line</field>
+        <field name="arch" type="xml">
+            <form string="Lini Bisnis">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="active"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="action_business_line" model="ir.actions.act_window">
+        <field name="name">Lini Bisnis</field>
+        <field name="res_model">genresi.business.line</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <menuitem id="menu_business_line" name="Lini Bisnis"
+        parent="genresi_base.genresi_menu_configuration" action="action_business_line"
+        groups="genresi_base.group_genresi_owner" sequence="10"/>
+</odoo>

@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_business_line_viewer,business.line.viewer,model_genresi_business_line,genresi_base.group_genresi_viewer,1,0,0,0
+access_business_line_owner,business.line.owner,model_genresi_business_line,genresi_base.group_genresi_owner,1,1,1,1
+access_seller_viewer,seller.viewer,model_genresi_seller,genresi_base.group_genresi_viewer,1,0,0,0
+access_seller_owner,seller.owner,model_genresi_seller,genresi_base.group_genresi_owner,1,1,1,1

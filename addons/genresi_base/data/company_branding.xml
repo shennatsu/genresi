@@ -2,8 +2,12 @@
 <odoo>
     <record id="base.IDR" model="res.currency">
         <field name="active">True</field>
-        <field name="rounding">1</field>
+        <field name="rounding">0.000001</field>
     </record>
+    <function model="res.currency" name="write">
+        <value eval="[ref('base.IDR')]"/>
+        <value eval="{'rounding': 0.000001}"/>
+    </function>
 
     <record id="base.lang_id" model="res.lang">
         <field name="active">True</field>

@@ -1,5 +1,5 @@
 """Genresi base addon."""
 
-from . import tests
+from . import models, tests
 
-__all__ = ["tests"]
+__all__ = ["models", "tests"]

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_partner_form_genresi" model="ir.ui.view">
+        <field name="name">res.partner.form.genresi</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='category_id']" position="after">
+                <field name="genresi_partner_type"/>
+                <field name="genresi_is_fixed_customer"/>
+            </xpath>
+        </field>
+    </record>
+    <record id="action_genresi_partner" model="ir.actions.act_window">
+        <field name="name">Partner</field>
+        <field name="res_model">res.partner</field>
+        <field name="view_mode">kanban,tree,form</field>
+        <field name="context">{'res_partner_search_mode': 'customer'}</field>
+    </record>
+    <menuitem id="menu_genresi_partner" name="Partner"
+        parent="genresi_base.genresi_menu_configuration" action="action_genresi_partner"
+        groups="genresi_base.group_genresi_owner" sequence="30"/>
+</odoo>
