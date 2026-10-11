@@ -4,3 +4,43 @@
     margin: 8px 4px;
     object-fit: contain;
 }
+
+// Small overrides for the official MuK AppsBar/AppsMenu selectors.
+.mk_apps_sidebar_panel {
+    background-color: #FFFFFF;
+
+    .mk_apps_sidebar_menu > li > a {
+        color: #212529;
+    }
+
+    .mk_apps_sidebar_menu > li:hover > a {
+        background-color: #F8F9FA;
+        color: #212529;
+    }
+
+    .mk_apps_sidebar_menu > li.active > a {
+        background-color: #FBEEDD;
+        color: #A85A14;
+    }
+
+    .mk_apps_sidebar_logo {
+        background-color: #FFFFFF;
+
+        img {
+            display: block;
+            width: 100%;
+            height: auto;
+            max-height: 64px;
+            object-fit: contain;
+        }
+    }
+}
+
+.o_navbar_apps_menu.show .dropdown-menu {
+    background-color: #FFFFFF;
+    background-image: none !important;
+
+    .mk_app_name {
+        color: #212529;
+    }
+}

@@ -46,11 +46,27 @@ class TestGenresiBase(TransactionCase):
         self.assertTrue(company.logo)
         self.assertTrue(company.favicon)
         self.assertTrue(company.appbar_image)
+        self.assertFalse(company.background_image)
         self.assertEqual(self.env.user.sidebar_type, "large")
         self.assertEqual(
             self.env["ir.config_parameter"].sudo().get_param("auth_signup.invitation_scope"),
             "b2b",
         )
+
+    def test_genresi_root_menus_have_icons(self):
+        """The Genresi app sections must use the generated menu icons."""
+        menu_ids = (
+            "genresi_menu_root",
+            "genresi_menu_dashboard",
+            "genresi_menu_transaction",
+            "genresi_menu_receivable_payable",
+            "genresi_menu_stock",
+            "genresi_menu_closing",
+            "genresi_menu_report",
+            "genresi_menu_configuration",
+        )
+        for xmlid in menu_ids:
+            self.assertTrue(self.env.ref(f"genresi_base.{xmlid}").web_icon)
 
     def test_compiled_branding_colors_are_present(self):
         """Backend and frontend CSS bundles must contain the Genresi palette."""
@@ -66,6 +82,8 @@ class TestGenresiBase(TransactionCase):
             self.assertRegex(css, r"#a85a14|rgb\(168, 90, 20\)")
             self.assertRegex(css, r"#8a4a10|rgb\(138, 74, 16\)")
             self.assertRegex(css, r"#fbeedd|rgb\(251, 238, 221\)")
+            self.assertRegex(css, r"#ffffff|rgb\(255, 255, 255\)")
+            self.assertRegex(css, r"#f8f9fa|rgb\(248, 249, 250\)")
             self.assertRegex(
                 css,
                 r"\.btn-primary[^{}]*\{[^}]*background-color:\s*#a85a14",

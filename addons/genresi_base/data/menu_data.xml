@@ -14,20 +14,48 @@
     </record>
 
     <menuitem id="genresi_menu_root" name="Genresi"
-        web_icon="genresi_base,static/src/img/genresi_icon.png"
+        web_icon="genresi_base,static/src/img/genresi_menu_root.png"
         groups="genresi_base.group_genresi_viewer" sequence="10"/>
     <menuitem id="genresi_menu_dashboard" name="Dashboard"
-        parent="genresi_menu_root" groups="genresi_base.group_genresi_viewer" sequence="10"/>
+        parent="genresi_menu_root"
+        groups="genresi_base.group_genresi_viewer" sequence="10"/>
     <menuitem id="genresi_menu_transaction" name="Transaksi"
-        parent="genresi_menu_root" groups="genresi_base.group_genresi_viewer" sequence="20"/>
+        parent="genresi_menu_root"
+        groups="genresi_base.group_genresi_viewer" sequence="20"/>
     <menuitem id="genresi_menu_receivable_payable" name="Piutang &amp; Hutang"
-        parent="genresi_menu_root" groups="genresi_base.group_genresi_viewer" sequence="30"/>
+        parent="genresi_menu_root"
+        groups="genresi_base.group_genresi_viewer" sequence="30"/>
     <menuitem id="genresi_menu_stock" name="Stok"
-        parent="genresi_menu_root" groups="genresi_base.group_genresi_viewer" sequence="40"/>
+        parent="genresi_menu_root"
+        groups="genresi_base.group_genresi_viewer" sequence="40"/>
     <menuitem id="genresi_menu_closing" name="Tutup Kas"
-        parent="genresi_menu_root" groups="genresi_base.group_genresi_viewer" sequence="50"/>
+        parent="genresi_menu_root"
+        groups="genresi_base.group_genresi_viewer" sequence="50"/>
     <menuitem id="genresi_menu_report" name="Laporan"
-        parent="genresi_menu_root" groups="genresi_base.group_genresi_viewer" sequence="60"/>
+        parent="genresi_menu_root"
+        groups="genresi_base.group_genresi_viewer" sequence="60"/>
     <menuitem id="genresi_menu_configuration" name="Konfigurasi"
-        parent="genresi_menu_root" groups="genresi_base.group_genresi_owner" sequence="90"/>
+        parent="genresi_menu_root"
+        groups="genresi_base.group_genresi_owner" sequence="90"/>
+    <record id="genresi_menu_dashboard" model="ir.ui.menu">
+        <field name="web_icon">genresi_base,static/src/img/genresi_menu_dashboard.png</field>
+    </record>
+    <record id="genresi_menu_transaction" model="ir.ui.menu">
+        <field name="web_icon">genresi_base,static/src/img/genresi_menu_transaction.png</field>
+    </record>
+    <record id="genresi_menu_receivable_payable" model="ir.ui.menu">
+        <field name="web_icon">genresi_base,static/src/img/genresi_menu_receivable_payable.png</field>
+    </record>
+    <record id="genresi_menu_stock" model="ir.ui.menu">
+        <field name="web_icon">genresi_base,static/src/img/genresi_menu_stock.png</field>
+    </record>
+    <record id="genresi_menu_closing" model="ir.ui.menu">
+        <field name="web_icon">genresi_base,static/src/img/genresi_menu_closing.png</field>
+    </record>
+    <record id="genresi_menu_report" model="ir.ui.menu">
+        <field name="web_icon">genresi_base,static/src/img/genresi_menu_report.png</field>
+    </record>
+    <record id="genresi_menu_configuration" model="ir.ui.menu">
+        <field name="web_icon">genresi_base,static/src/img/genresi_menu_configuration.png</field>
+    </record>
 </odoo>

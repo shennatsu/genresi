@@ -148,12 +148,14 @@ settings = env["res.config.settings"].create({
     "color_primary_light": "#A85A14",
     "color_brand_dark": "#A85A14",
     "color_primary_dark": "#A85A14",
-    "theme_color_appsmenu_text": "#FFFFFF",
-    "theme_color_appbar_text": "#FFFFFF",
-    "theme_color_appbar_active": "#A85A14",
-    "theme_color_appbar_background": "#A85A14",
+    "theme_color_appsmenu_text": "#212529",
+    "theme_color_appbar_text": "#212529",
+    "theme_color_appbar_active": "#FBEEDD",
+    "theme_color_appbar_background": "#FFFFFF",
+    "theme_background_image": False,
 })
 settings.set_values()
+env.company.background_image = False
 env.cr.commit()
 print("Genresi MuK theme colors synchronized.")
 '@

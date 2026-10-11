@@ -17,14 +17,14 @@ $o-navbar-background: #A85A14;
 $o-navbar-border-bottom: 1px solid #8A4A10;
 $o-navbar-entry-bg--hover: #8A4A10;
 
-$mk_color_appsmenu_text: #FFFFFF;
-$mk_color_appbar_text: #FFFFFF;
-$mk_color_appbar_active: #A85A14;
-$mk_color_appbar_background: #A85A14;
-$mk-appsmenu-color: #FFFFFF;
-$mk-appbar-color: #FFFFFF;
-$mk-appbar-active: #A85A14;
-$mk-appbar-background: #A85A14;
+$mk_color_appsmenu_text: #212529;
+$mk_color_appbar_text: #212529;
+$mk_color_appbar_active: #FBEEDD;
+$mk_color_appbar_background: #FFFFFF;
+$mk-appsmenu-color: #212529;
+$mk-appbar-color: #212529;
+$mk-appbar-active: #FBEEDD;
+$mk-appbar-background: #FFFFFF;
 
 $o-btns-bs-override: map-merge($o-btns-bs-override, (
     "primary": map-merge(map-get($o-btns-bs-override, "primary"), (

@@ -14,6 +14,7 @@
         <field name="currency_id" ref="base.IDR"/>
         <field name="logo" type="base64" file="genresi_base/static/src/img/genresi_logo.png"/>
         <field name="favicon" type="base64" file="genresi_base/static/src/img/genresi_favicon.ico"/>
+        <field name="background_image" eval="False"/>
         <field name="appbar_image" type="base64" file="genresi_base/static/src/img/genresi_sidebar_logo.png"/>
     </record>
 
