@@ -9,6 +9,8 @@
     "depends": ["genresi_report"],
     "data": [
         "data/demo_config.xml",
+        "data/demo_stock.xml",
+        "data/demo_production.xml",
     ],
     "auto_install": False,
     "installable": True,

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="stock_in_ragi" model="genresi.stock.move">
+        <field name="material_id" ref="genresi_stock.material_ragi"/>
+        <field name="date">2026-08-01</field><field name="move_type">in</field><field name="quantity">180</field>
+        <field name="reference">Stok awal Agustus 2026</field>
+    </record>
+    <record id="stock_in_telor" model="genresi.stock.move">
+        <field name="material_id" ref="genresi_stock.material_telor"/>
+        <field name="date">2026-08-01</field><field name="move_type">in</field><field name="quantity">1600</field>
+        <field name="reference">Stok awal Agustus 2026</field>
+    </record>
+</odoo>

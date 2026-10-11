@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="production_coklat_0001" model="genresi.production">
+        <field name="name">PRD/2026/08/0001</field>
+        <field name="date">2026-08-23</field>
+        <field name="product_id" ref="genresi_stock.product_coklat_natural"/>
+        <field name="quantity">50</field>
+    </record>
+    <function model="genresi.production" name="action_confirm">
+        <value eval="[ref('production_coklat_0001')]"/>
+    </function>
+    <record id="production_keju_0002" model="genresi.production">
+        <field name="name">PRD/2026/08/0002</field>
+        <field name="date">2026-08-23</field>
+        <field name="product_id" ref="genresi_stock.product_keju_natural"/>
+        <field name="quantity">40</field>
+    </record>
+</odoo>
