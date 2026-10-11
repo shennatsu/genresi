@@ -1,0 +1,12 @@
+.env
+*.log
+__pycache__/
+*.pyc
+.venv/
+filestore/
+tmp/
+output/
+backups/
+.odoo_runtime/
+.idea/
+.vscode/
