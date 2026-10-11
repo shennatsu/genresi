@@ -1,8 +1,12 @@
 .env
+odoo.conf
 *.log
 __pycache__/
 *.pyc
 .venv/
+.ruff_cache/
+.pytest_cache/
+*.egg-info/
 filestore/
 tmp/
 output/

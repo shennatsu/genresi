@@ -1,0 +1,1 @@
+"""Genresi cash addon."""

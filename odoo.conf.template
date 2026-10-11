@@ -1,0 +1,13 @@
+[options]
+addons_path = ./addons
+admin_passwd = __ODOO_ADMIN_PASSWD__
+db_host = __PGHOST__
+db_port = __PGPORT__
+db_user = __PGUSER__
+db_password = __PGPASSWORD__
+db_name = genresi_dev
+dbfilter = ^genresi_.*$
+list_db = False
+http_port = 8073
+data_dir = .odoo_runtime
+logfile = .odoo_runtime/odoo.log
