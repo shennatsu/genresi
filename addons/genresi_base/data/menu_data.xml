@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="mail.menu_root_discuss" model="ir.ui.menu">
+        <field name="groups_id" eval="[Command.set([ref('base.group_system')])]"/>
+    </record>
+    <record id="base.menu_management" model="ir.ui.menu">
+        <field name="groups_id" eval="[Command.set([ref('base.group_system')])]"/>
+    </record>
+    <record id="base.menu_administration" model="ir.ui.menu">
+        <field name="groups_id" eval="[Command.set([ref('base.group_system')])]"/>
+    </record>
+    <record id="spreadsheet_dashboard.spreadsheet_dashboard_menu_root" model="ir.ui.menu">
+        <field name="groups_id" eval="[Command.set([ref('base.group_system')])]"/>
+    </record>
+
+    <menuitem id="genresi_menu_root" name="Genresi"
+        web_icon="genresi_base,static/src/img/genresi_icon.png"
+        groups="genresi_base.group_genresi_viewer" sequence="10"/>
+    <menuitem id="genresi_menu_dashboard" name="Dashboard"
+        parent="genresi_menu_root" groups="genresi_base.group_genresi_viewer" sequence="10"/>
+    <menuitem id="genresi_menu_transaction" name="Transaksi"
+        parent="genresi_menu_root" groups="genresi_base.group_genresi_viewer" sequence="20"/>
+    <menuitem id="genresi_menu_receivable_payable" name="Piutang &amp; Hutang"
+        parent="genresi_menu_root" groups="genresi_base.group_genresi_viewer" sequence="30"/>
+    <menuitem id="genresi_menu_stock" name="Stok"
+        parent="genresi_menu_root" groups="genresi_base.group_genresi_viewer" sequence="40"/>
+    <menuitem id="genresi_menu_closing" name="Tutup Kas"
+        parent="genresi_menu_root" groups="genresi_base.group_genresi_viewer" sequence="50"/>
+    <menuitem id="genresi_menu_report" name="Laporan"
+        parent="genresi_menu_root" groups="genresi_base.group_genresi_viewer" sequence="60"/>
+    <menuitem id="genresi_menu_configuration" name="Konfigurasi"
+        parent="genresi_menu_root" groups="genresi_base.group_genresi_owner" sequence="90"/>
+</odoo>

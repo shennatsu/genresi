@@ -4,6 +4,7 @@ odoo.conf
 __pycache__/
 *.pyc
 .venv/
+.pre_commit_cache/
 .ruff_cache/
 .pytest_cache/
 *.egg-info/

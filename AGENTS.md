@@ -25,7 +25,8 @@ Gunakan struktur Odoo standar:
 - `views/`: view, action, dan menu.
 - `security/`: access CSV dan record rule.
 - `data/`: seed master yang tidak bergantung pada demo.
-- `demo/`: data contoh dengan tanggal tetap Agustus 2026.
+- `genresi_demo/data/`: data contoh dengan tanggal tetap Agustus 2026; jangan memakai
+  folder `demo/` karena database Genresi selalu dibuat dengan `--without-demo=all`.
 - `wizard/`: transient model dan view wizard.
 - `report/`: template dan action report QWeb.
 - `tests/`: test `TransactionCase`.
@@ -52,10 +53,15 @@ Fase awal hanya membuat skeleton installable; jangan menambahkan model bisnis pl
 - Satuan bahan yang didukung: gram, pcs, dan biji.
 - Cron wajib idempotent.
 - Setiap fitur wajib memiliki `TransactionCase` yang memeriksa angka acuan PRD.
+- Data contoh hanya dipasang ke database dev/presentasi melalui `init_demo_db.ps1`;
+  database test tidak memasang `genresi_demo`.
 
 ## Dependensi dan alur kerja
 
 - Arah dependensi addon: `genresi_base <- genresi_stock <- genresi_cash <- genresi_report`.
 - Dependensi core hanya `base`, `mail`, dan `uom`; `board` hanya boleh menjadi dependensi `genresi_report`.
+- `genresi_demo` bersifat opsional, bergantung pada `genresi_report`, dan `auto_install=False`.
+- Instalasi database wajib memakai `--without-demo=all` dan `--skip-auto-install`.
+- Tooling Python dipasang di `.venv` proyek, bukan global; versi pinned dicatat di README.
 - Buat commit kecil dengan conventional commits.
 - Setiap fase berhenti dan laporkan hasilnya. Jangan push tanpa izin pengguna.

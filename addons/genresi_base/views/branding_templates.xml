@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="web_layout_favicon" inherit_id="web.layout">
+        <xpath expr="//link[@rel='shortcut icon']" position="attributes">
+            <attribute name="t-att-href">x_icon or '/genresi_base/static/src/img/genresi_favicon.ico'</attribute>
+        </xpath>
+    </template>
+
+    <template id="web_login_layout_branding" inherit_id="web.login_layout">
+        <xpath expr="//img[contains(@t-attf-src, '/web/binary/company_logo')]" position="attributes">
+            <attribute name="t-attf-src">/genresi_base/static/src/img/genresi_logo.png</attribute>
+        </xpath>
+    </template>
+
+    <template id="web_external_layout_branding" inherit_id="web.external_layout_standard">
+        <xpath expr="//img[@t-if='company.logo']" position="attributes">
+            <attribute name="class">genresi-report-logo</attribute>
+        </xpath>
+    </template>
+</odoo>

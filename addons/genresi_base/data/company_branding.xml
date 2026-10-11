@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="base.IDR" model="res.currency">
+        <field name="active">True</field>
+        <field name="rounding">1</field>
+    </record>
+
+    <record id="base.lang_id" model="res.lang">
+        <field name="active">True</field>
+    </record>
+
+    <record id="base.main_company" model="res.company">
+        <field name="name">CV Generasi Restu Ibu</field>
+        <field name="currency_id" ref="base.IDR"/>
+        <field name="logo" type="base64" file="genresi_base/static/src/img/genresi_logo.png"/>
+    </record>
+
+    <record id="base.user_admin" model="res.users">
+        <field name="lang">id_ID</field>
+        <field name="tz">Asia/Jakarta</field>
+        <field name="company_id" ref="base.main_company"/>
+        <field name="company_ids" eval="[Command.set([ref('base.main_company')])]"/>
+        <field name="groups_id" eval="[Command.link(ref('genresi_base.group_genresi_owner'))]"/>
+    </record>
+
+    <record id="base.default_user" model="res.users">
+        <field name="lang">id_ID</field>
+        <field name="tz">Asia/Jakarta</field>
+        <field name="company_id" ref="base.main_company"/>
+        <field name="company_ids" eval="[Command.set([ref('base.main_company')])]"/>
+        <field name="groups_id" eval="[Command.link(ref('genresi_base.group_genresi_viewer'))]"/>
+    </record>
+</odoo>

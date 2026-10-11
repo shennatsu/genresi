@@ -9,3 +9,11 @@ select = ["E", "F", "I", "UP", "B", "SIM"]
 [tool.ruff.format]
 quote-style = "double"
 indent-style = "space"
+
+[project.optional-dependencies]
+dev = [
+    "pre-commit==4.1.0",
+    "ruff==0.9.10",
+    "pylint-odoo==9.0.0",
+    "Pillow==11.1.0",
+]

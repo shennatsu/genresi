@@ -1,0 +1,19 @@
+// Genresi keeps Odoo Community tokens and overrides only the brand palette.
+$o-brand-odoo: #D67C25;
+$o-brand-primary: #A85A14;
+$o-brand-secondary: #E2A165;
+$o-brand-lightsecondary: #FBEEDD;
+$o-action: #A85A14;
+$o-main-link-color: #8A4A10;
+$o-component-active-bg: #FBEEDD;
+
+$o-navbar-background: #D67C25;
+$o-navbar-border-bottom: 1px solid #8A4A10;
+$o-navbar-entry-bg--hover: rgba($o-black, .12);
+
+$o-btns-bs-override: map-merge($o-btns-bs-override, (
+    "primary": map-merge(map-get($o-btns-bs-override, "primary"), (
+        hover-background: #8A4A10,
+        hover-border: #8A4A10,
+    )),
+));

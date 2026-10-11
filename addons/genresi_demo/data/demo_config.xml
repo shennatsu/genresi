@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="demo_today" model="ir.config_parameter">
+        <field name="key">genresi.demo_today</field>
+        <field name="value">2026-08-23</field>
+    </record>
+</odoo>
