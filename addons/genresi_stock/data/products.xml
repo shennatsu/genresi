@@ -47,7 +47,7 @@
         <field name="sale_price">35000</field>
     </record>
     <record id="product_coklat_bungasari" model="genresi.product">
-        <field name="name">Roti Coklat - Adonan Bungasari</field>
+        <field name="name">Roti Cokelat - Adonan Bungasari</field>
         <field name="dough_recipe_id" ref="recipe_dough_bungasari" />
         <field name="filling_recipe_id" ref="recipe_filling_coklat" />
         <field name="packaging_recipe_id" ref="recipe_packaging" />
@@ -56,7 +56,7 @@
         <field name="state">archived</field>
     </record>
     <record id="product_coklat_natural" model="genresi.product">
-        <field name="name">Roti Coklat - Adonan Natural</field>
+        <field name="name">Roti Cokelat - Adonan Natural</field>
         <field name="dough_recipe_id" ref="recipe_dough_natural" />
         <field name="filling_recipe_id" ref="recipe_filling_coklat" />
         <field name="packaging_recipe_id" ref="recipe_packaging" />
@@ -67,6 +67,6 @@
         <field name="dough_recipe_id" ref="recipe_dough_natural" />
         <field name="filling_recipe_id" ref="recipe_filling_srikaya" />
         <field name="packaging_recipe_id" ref="recipe_packaging" />
-        <field name="sale_price">0</field>
+        <field name="sale_price">25000</field>
     </record>
 </odoo>

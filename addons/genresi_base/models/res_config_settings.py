@@ -10,14 +10,22 @@ class ResConfigSettings(models.TransientModel):
 
     _inherit = "res.config.settings"
 
+    @api.model
+    def _valid_field_parameter(self, field, name):
+        if name == "digits":
+            return True
+        return super()._valid_field_parameter(field, name)
+
     company_currency_id = fields.Many2one(related="company_id.currency_id", readonly=True)
     overhead_production_per_piece = fields.Monetary(
         string="Overhead produksi per pcs",
         currency_field="company_currency_id",
+        digits=(16, 0),
     )
     sales_opex_per_piece = fields.Monetary(
         string="Opex jualan per pcs",
         currency_field="company_currency_id",
+        digits=(16, 0),
     )
     due_days_default = fields.Integer(
         string="Default jatuh tempo (hari)",

@@ -9,10 +9,12 @@
                 <app string="Genresi" name="genresi" groups="genresi_base.group_genresi_owner">
                     <block title="Parameter Operasional">
                         <setting string="Overhead produksi per pcs">
-                            <field name="overhead_production_per_piece"/>
+                            <field name="overhead_production_per_piece"
+                                options="{'field_digits': true}"/>
                         </setting>
                         <setting string="Opex jualan per pcs">
-                            <field name="sales_opex_per_piece"/>
+                            <field name="sales_opex_per_piece"
+                                options="{'field_digits': true}"/>
                         </setting>
                         <setting string="Default jatuh tempo">
                             <field name="due_days_default"/>

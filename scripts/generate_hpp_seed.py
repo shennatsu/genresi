@@ -22,8 +22,21 @@ UOM_REFS = {
     "biji": "genresi_base.uom_genresi_biji",
 }
 MIN_STOCK = {
-    "Ragi permifan 2 in 1": 200,
-    "Telor": 1700,
+    "Ragi permifan 2 in 1": 500,
+    "Telor": 2000,
+    "Terigu Golden eagle": 5000,
+    "Whole wheat natural": 4000,
+    "Gula pasir": 2000,
+    "Mother choice": 1000,
+    "Garam": 500,
+    "Keju": 800,
+    "Coklat ceres": 1000,
+    "Daging": 1500,
+    "Elmer glaze": 1000,
+    "SKM": 500,
+    "Selai srikaya": 500,
+    "Lunch box": 100,
+    "Kresek": 100,
 }
 MATERIAL_IDS = {
     "Terigu Golden eagle": "material_terigu_golden_eagle",
@@ -161,7 +174,7 @@ def _read_materials(sheet):
             "min_stock": MIN_STOCK.get(name, 0),
         }
     for name, values in EXTRA_MATERIALS.items():
-        materials[name] = values | {"min_stock": 0}
+        materials[name] = values | {"min_stock": MIN_STOCK.get(name, 0)}
     return materials
 
 
@@ -240,7 +253,7 @@ def _read_products(summary_sheet, margin_sheet, recipes):
         products.append(
             {
                 "id": PRODUCT_IDS.get(name, f"product_{_slug(name)}"),
-                "name": name,
+                "name": name.replace("Roti Coklat", "Roti Cokelat"),
                 "dough_recipe_id": recipe_ids[dough_name],
                 "filling_recipe_id": recipe_ids.get(filling_name),
                 "packaging_recipe_id": recipe_ids["Kemasan"],
@@ -256,7 +269,7 @@ def _read_products(summary_sheet, margin_sheet, recipes):
             "dough_recipe_id": recipe_ids["Adonan Natural"],
             "filling_recipe_id": recipe_ids["Filling Srikaya"],
             "packaging_recipe_id": recipe_ids["Kemasan"],
-            "sale_price": 0,
+            "sale_price": 25000,
             "active": True,
             "state": "active",
         }

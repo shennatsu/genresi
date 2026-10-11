@@ -47,7 +47,9 @@ class GenresiProduct(models.Model):
         required=True,
         default=lambda self: self.env.ref("genresi_base.uom_genresi_pcs"),
     )
-    sale_price = fields.Monetary(string="Harga Jual", currency_field="currency_id", tracking=True)
+    sale_price = fields.Monetary(
+        string="Harga Jual", currency_field="currency_id", digits=(16, 0), tracking=True
+    )
     company_id = fields.Many2one(
         "res.company", string="Perusahaan", required=True, default=lambda self: self.env.company
     )
@@ -55,12 +57,14 @@ class GenresiProduct(models.Model):
     hpp_per_piece = fields.Monetary(
         string="HPP per pcs",
         currency_field="currency_id",
+        digits=(16, 0),
         compute="_compute_cost",
         store=True,
     )
     margin = fields.Monetary(
         string="Margin",
         currency_field="currency_id",
+        digits=(16, 0),
         compute="_compute_cost",
         store=True,
     )

@@ -5,6 +5,7 @@
         <field name="uom_id" ref="uom.product_uom_gram" />
         <field name="price_per_unit">15</field>
         <field name="pack_size">1000</field>
+        <field name="min_stock">5000</field>
     </record>
     <record id="material_whole_wheat_bungasari" model="genresi.material">
         <field name="name">Terigu gandum whole wheat bungasari</field>
@@ -23,38 +24,42 @@
         <field name="uom_id" ref="uom.product_uom_gram" />
         <field name="price_per_unit">21</field>
         <field name="pack_size">5000</field>
+        <field name="min_stock">4000</field>
     </record>
     <record id="material_ragi" model="genresi.material">
         <field name="name">Ragi permifan 2 in 1</field>
         <field name="uom_id" ref="uom.product_uom_gram" />
         <field name="price_per_unit">107</field>
         <field name="pack_size">500</field>
-        <field name="min_stock">200</field>
+        <field name="min_stock">500</field>
     </record>
     <record id="material_gula" model="genresi.material">
         <field name="name">Gula pasir</field>
         <field name="uom_id" ref="uom.product_uom_gram" />
         <field name="price_per_unit">18</field>
         <field name="pack_size">1000</field>
+        <field name="min_stock">2000</field>
     </record>
     <record id="material_telor" model="genresi.material">
         <field name="name">Telor</field>
         <field name="uom_id" ref="uom.product_uom_gram" />
         <field name="price_per_unit">30</field>
         <field name="pack_size">1000</field>
-        <field name="min_stock">1700</field>
+        <field name="min_stock">2000</field>
     </record>
     <record id="material_mother_choice" model="genresi.material">
         <field name="name">Mother choice</field>
         <field name="uom_id" ref="uom.product_uom_gram" />
         <field name="price_per_unit">35</field>
         <field name="pack_size">1000</field>
+        <field name="min_stock">1000</field>
     </record>
     <record id="material_garam" model="genresi.material">
         <field name="name">Garam</field>
         <field name="uom_id" ref="uom.product_uom_gram" />
         <field name="price_per_unit">17.5</field>
         <field name="pack_size">200</field>
+        <field name="min_stock">500</field>
     </record>
     <record id="material_coklat" model="genresi.material">
         <field name="name">Coklat</field>
@@ -67,42 +72,49 @@
         <field name="uom_id" ref="uom.product_uom_gram" />
         <field name="price_per_unit">60</field>
         <field name="pack_size">2000</field>
+        <field name="min_stock">800</field>
     </record>
     <record id="material_elmer_glaze" model="genresi.material">
         <field name="name">Elmer glaze</field>
         <field name="uom_id" ref="uom.product_uom_gram" />
         <field name="price_per_unit">75</field>
         <field name="pack_size">200</field>
+        <field name="min_stock">1000</field>
     </record>
     <record id="material_skm" model="genresi.material">
         <field name="name">SKM</field>
         <field name="uom_id" ref="uom.product_uom_gram" />
         <field name="price_per_unit">124</field>
         <field name="pack_size">250</field>
+        <field name="min_stock">500</field>
     </record>
     <record id="material_coklat_ceres" model="genresi.material">
         <field name="name">Coklat ceres</field>
         <field name="uom_id" ref="uom.product_uom_gram" />
         <field name="price_per_unit">50</field>
         <field name="pack_size">1000</field>
+        <field name="min_stock">1000</field>
     </record>
     <record id="material_daging" model="genresi.material">
         <field name="name">Daging</field>
         <field name="uom_id" ref="uom.product_uom_gram" />
         <field name="price_per_unit">120</field>
         <field name="pack_size">1000</field>
+        <field name="min_stock">1500</field>
     </record>
     <record id="material_lunch_box" model="genresi.material">
         <field name="name">Lunch box</field>
         <field name="uom_id" ref="genresi_base.uom_genresi_pcs" />
         <field name="price_per_unit">1200</field>
         <field name="pack_size">50</field>
+        <field name="min_stock">100</field>
     </record>
     <record id="material_kresek" model="genresi.material">
         <field name="name">Kresek</field>
         <field name="uom_id" ref="genresi_base.uom_genresi_pcs" />
         <field name="price_per_unit">260</field>
         <field name="pack_size">50</field>
+        <field name="min_stock">100</field>
     </record>
     <record id="material_kundur" model="genresi.material">
         <field name="name">Kundur</field>
@@ -121,5 +133,6 @@
         <field name="uom_id" ref="uom.product_uom_gram" />
         <field name="price_per_unit">0</field>
         <field name="pack_size">1</field>
+        <field name="min_stock">500</field>
     </record>
 </odoo>

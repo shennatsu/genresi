@@ -19,16 +19,23 @@ class GenresiMaterial(models.Model):
         currency_field="currency_id",
         required=True,
         default=0,
+        digits=(16, 0),
     )
-    min_stock = fields.Float(string="Stok Minimum", digits=(16, 3), default=0)
-    pack_size = fields.Float(string="Ukuran Kemasan", digits=(16, 3), default=0)
+    min_stock = fields.Float(string="Stok Minimum", digits=(16, 2), default=0)
+    pack_size = fields.Float(string="Ukuran Kemasan", digits=(16, 2), default=0)
     company_id = fields.Many2one(
         "res.company", string="Perusahaan", required=True, default=lambda self: self.env.company
     )
     currency_id = fields.Many2one(related="company_id.currency_id", readonly=True)
     stock_move_ids = fields.One2many("genresi.stock.move", "material_id", string="Pergerakan Stok")
     stock_qty = fields.Float(
-        string="Stok Saat Ini", digits=(16, 3), compute="_compute_stock_qty", store=True
+        string="Stok Saat Ini", digits=(16, 2), compute="_compute_stock_qty", store=True
+    )
+    stock_progress_qty = fields.Float(
+        string="Stok untuk Progress",
+        digits=(16, 2),
+        compute="_compute_stock_progress_qty",
+        store=True,
     )
     stock_state = fields.Selection(
         selection=[("normal", "Aman"), ("critical", "Kritis")],
@@ -43,10 +50,18 @@ class GenresiMaterial(models.Model):
         for material in self:
             material.stock_qty = sum(material.stock_move_ids.mapped("signed_quantity"))
 
+    @api.depends("stock_qty")
+    def _compute_stock_progress_qty(self):
+        """Clamp negative stock to zero for the minimum-stock progress bar."""
+        for material in self:
+            material.stock_progress_qty = max(material.stock_qty, 0)
+
     @api.depends("stock_qty", "min_stock")
     def _compute_stock_state(self):
-        """Mark material critical when on-hand is at or below its minimum."""
+        """Mark material critical only below a positive minimum."""
         for material in self:
             material.stock_state = (
-                "critical" if material.stock_qty <= material.min_stock else "normal"
+                "critical"
+                if material.min_stock > 0 and material.stock_qty < material.min_stock
+                else "normal"
             )

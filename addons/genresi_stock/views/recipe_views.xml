@@ -8,7 +8,7 @@
                 <field name="name"/>
                 <field name="recipe_type"/>
                 <field name="batch_output_qty"/>
-                <field name="cost_per_piece" widget="monetary"/>
+                <field name="cost_per_piece" widget="monetary" digits="[16, 0]"/>
                 <field name="has_incomplete_cost" widget="boolean"/>
                 <field name="state" widget="badge"/>
             </tree>
@@ -38,13 +38,16 @@
                         </group>
                         <group>
                             <field name="batch_output_qty"/>
-                            <field name="additional_cost" widget="monetary"/>
+                            <field name="additional_cost" widget="monetary"
+                                options="{'field_digits': true}"/>
                             <field name="currency_id" invisible="1"/>
                         </group>
                     </group>
                     <group string="Ringkasan Biaya">
-                        <field name="total_cost" widget="monetary" readonly="1"/>
-                        <field name="cost_per_piece" widget="monetary" readonly="1"/>
+                        <field name="total_cost" widget="monetary" readonly="1"
+                            options="{'field_digits': true}"/>
+                        <field name="cost_per_piece" widget="monetary" readonly="1"
+                            options="{'field_digits': true}"/>
                         <field name="has_incomplete_cost" readonly="1"/>
                     </group>
                     <notebook>
@@ -55,8 +58,10 @@
                                     <field name="material_id"/>
                                     <field name="quantity"/>
                                     <field name="uom_id" readonly="1"/>
-                                    <field name="unit_price" widget="monetary" readonly="1"/>
-                                    <field name="subtotal" widget="monetary" readonly="1"/>
+                                    <field name="unit_price" widget="monetary" readonly="1"
+                                        options="{'field_digits': true}"/>
+                                    <field name="subtotal" widget="monetary" readonly="1"
+                                        options="{'field_digits': true}"/>
                                     <field name="currency_id" column_invisible="1"/>
                                 </tree>
                             </field>

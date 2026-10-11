@@ -94,6 +94,32 @@ class TestGenresiStock(TransactionCase):
             -5,
         )
 
+    def test_stock_state_zero_minimum_and_negative_stock(self):
+        """Zero minimum is normal at zero/below; positive minimum is critical below it."""
+        zero_minimum = self._material("Bahan Minimum Nol", 15)
+        self.assertEqual(zero_minimum.stock_qty, 0)
+        self.assertEqual(zero_minimum.stock_state, "normal")
+
+        self.env["genresi.stock.move"].create(
+            {
+                "material_id": zero_minimum.id,
+                "move_type": "adjust",
+                "quantity": -5,
+            }
+        )
+        self.assertEqual(zero_minimum.stock_qty, -5)
+        self.assertEqual(zero_minimum.stock_state, "normal")
+
+        positive_minimum = self._material("Bahan Minimum Positif", 15, min_stock=1)
+        self.env["genresi.stock.move"].create(
+            {
+                "material_id": positive_minimum.id,
+                "move_type": "adjust",
+                "quantity": -1,
+            }
+        )
+        self.assertEqual(positive_minimum.stock_state, "critical")
+
     def test_stock_actions_and_menus_are_connected(self):
         """Stock actions must be available below the configured Stok menu."""
         stock_menu = self.env.ref("genresi_base.genresi_menu_stock")
@@ -173,6 +199,14 @@ class TestGenresiStock(TransactionCase):
 
         self.assertEqual(ragi.price_per_unit, 107)
         self.assertAlmostEqual(product.hpp_per_piece, 13505.234662347106, delta=0.000001)
+        self.assertEqual(
+            self.env.ref("genresi_stock.product_coklat_natural").name,
+            "Roti Cokelat - Adonan Natural",
+        )
+        srikaya = self.env.ref("genresi_stock.product_srikaya_natural")
+        self.assertEqual(srikaya.sale_price, 25000)
+        self.assertTrue(srikaya.has_incomplete_cost)
+        self.assertFalse(srikaya.margin)
 
     def test_production_consumes_recipe_quantity_and_warns_without_blocking(self):
         """Production scales batch quantities and confirms even with insufficient stock."""

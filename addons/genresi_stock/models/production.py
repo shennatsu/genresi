@@ -24,7 +24,7 @@ class GenresiProduction(models.Model):
     product_id = fields.Many2one(
         "genresi.product", string="Produk", required=True, ondelete="restrict", tracking=True
     )
-    quantity = fields.Float(string="Jumlah Produksi", required=True, digits=(16, 3), tracking=True)
+    quantity = fields.Float(string="Jumlah Produksi", required=True, digits=(16, 0), tracking=True)
     uom_id = fields.Many2one(related="product_id.uom_id", string="Satuan", readonly=True)
     state = fields.Selection(
         selection=[("draft", "Draft"), ("done", "Selesai")],

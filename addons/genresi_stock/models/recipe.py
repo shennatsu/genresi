@@ -25,11 +25,12 @@ class GenresiRecipe(models.Model):
         selection=RECIPE_TYPES, string="Jenis Resep", required=True, tracking=True
     )
     batch_output_qty = fields.Float(
-        string="Hasil Batch (pcs)", required=True, digits=(16, 3), default=1, tracking=True
+        string="Hasil Batch (pcs)", required=True, digits=(16, 0), default=1, tracking=True
     )
     additional_cost = fields.Monetary(
         string="Biaya Langsung Tambahan",
         currency_field="currency_id",
+        digits=(16, 0),
         help="Dipakai untuk biaya batch yang tidak memiliki bahan tersendiri.",
     )
     line_ids = fields.One2many("genresi.recipe.line", "recipe_id", string="Bahan Resep", copy=True)
@@ -40,12 +41,14 @@ class GenresiRecipe(models.Model):
     total_cost = fields.Monetary(
         string="Subtotal Batch",
         currency_field="currency_id",
+        digits=(16, 0),
         compute="_compute_cost",
         store=True,
     )
     cost_per_piece = fields.Monetary(
         string="Biaya per pcs",
         currency_field="currency_id",
+        digits=(16, 0),
         compute="_compute_cost",
         store=True,
     )
@@ -126,19 +129,21 @@ class GenresiRecipeLine(models.Model):
     material_id = fields.Many2one(
         "genresi.material", string="Bahan Baku", required=True, ondelete="restrict"
     )
-    quantity = fields.Float(string="Takaran Batch", required=True, digits=(16, 3))
+    quantity = fields.Float(string="Takaran Batch", required=True, digits=(16, 2))
     uom_id = fields.Many2one(related="material_id.uom_id", string="Satuan", readonly=True)
     currency_id = fields.Many2one(related="recipe_id.currency_id", readonly=True)
     unit_price = fields.Monetary(
         string="Harga per Satuan",
         related="material_id.price_per_unit",
         currency_field="currency_id",
+        digits=(16, 0),
         store=True,
         readonly=True,
     )
     subtotal = fields.Monetary(
         string="Subtotal",
         currency_field="currency_id",
+        digits=(16, 0),
         compute="_compute_subtotal",
         store=True,
     )

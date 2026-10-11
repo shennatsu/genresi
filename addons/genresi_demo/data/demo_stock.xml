@@ -1,13 +1,143 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
+    <record id="stock_in_terigu_golden_eagle" model="genresi.stock.move">
+        <field name="material_id" ref="genresi_stock.material_terigu_golden_eagle"/>
+        <field name="date">2026-08-01</field>
+        <field name="move_type">in</field>
+        <field name="quantity">22000</field>
+        <field name="reference">Stok awal Agustus 2026</field>
+    </record>
+    <record id="stock_in_whole_wheat_bungasari" model="genresi.stock.move">
+        <field name="material_id" ref="genresi_stock.material_whole_wheat_bungasari"/>
+        <field name="date">2026-08-01</field>
+        <field name="move_type">in</field>
+        <field name="quantity">2500</field>
+        <field name="reference">Stok awal Agustus 2026</field>
+    </record>
+    <record id="stock_in_gandum_kasar" model="genresi.stock.move">
+        <field name="material_id" ref="genresi_stock.material_gandum_kasar"/>
+        <field name="date">2026-08-01</field>
+        <field name="move_type">in</field>
+        <field name="quantity">2500</field>
+        <field name="reference">Stok awal Agustus 2026</field>
+    </record>
+    <record id="stock_in_whole_wheat_natural" model="genresi.stock.move">
+        <field name="material_id" ref="genresi_stock.material_whole_wheat_natural"/>
+        <field name="date">2026-08-01</field>
+        <field name="move_type">in</field>
+        <field name="quantity">11075</field>
+        <field name="reference">Stok awal Agustus 2026</field>
+    </record>
     <record id="stock_in_ragi" model="genresi.stock.move">
         <field name="material_id" ref="genresi_stock.material_ragi"/>
-        <field name="date">2026-08-01</field><field name="move_type">in</field><field name="quantity">180</field>
+        <field name="date">2026-08-01</field>
+        <field name="move_type">in</field>
+        <field name="quantity">367.5</field>
+        <field name="reference">Stok awal Agustus 2026</field>
+    </record>
+    <record id="stock_in_gula" model="genresi.stock.move">
+        <field name="material_id" ref="genresi_stock.material_gula"/>
+        <field name="date">2026-08-01</field>
+        <field name="move_type">in</field>
+        <field name="quantity">7650</field>
         <field name="reference">Stok awal Agustus 2026</field>
     </record>
     <record id="stock_in_telor" model="genresi.stock.move">
         <field name="material_id" ref="genresi_stock.material_telor"/>
-        <field name="date">2026-08-01</field><field name="move_type">in</field><field name="quantity">1600</field>
+        <field name="date">2026-08-01</field>
+        <field name="move_type">in</field>
+        <field name="quantity">2725</field>
+        <field name="reference">Stok awal Agustus 2026</field>
+    </record>
+    <record id="stock_in_mother_choice" model="genresi.stock.move">
+        <field name="material_id" ref="genresi_stock.material_mother_choice"/>
+        <field name="date">2026-08-01</field>
+        <field name="move_type">in</field>
+        <field name="quantity">3906.25</field>
+        <field name="reference">Stok awal Agustus 2026</field>
+    </record>
+    <record id="stock_in_garam" model="genresi.stock.move">
+        <field name="material_id" ref="genresi_stock.material_garam"/>
+        <field name="date">2026-08-01</field>
+        <field name="move_type">in</field>
+        <field name="quantity">1962.5</field>
+        <field name="reference">Stok awal Agustus 2026</field>
+    </record>
+    <record id="stock_in_coklat" model="genresi.stock.move">
+        <field name="material_id" ref="genresi_stock.material_coklat"/>
+        <field name="date">2026-08-01</field>
+        <field name="move_type">in</field>
+        <field name="quantity">5000</field>
+        <field name="reference">Stok awal Agustus 2026</field>
+    </record>
+    <record id="stock_in_keju" model="genresi.stock.move">
+        <field name="material_id" ref="genresi_stock.material_keju"/>
+        <field name="date">2026-08-01</field>
+        <field name="move_type">in</field>
+        <field name="quantity">1200</field>
+        <field name="reference">Stok awal Agustus 2026</field>
+    </record>
+    <record id="stock_in_elmer_glaze" model="genresi.stock.move">
+        <field name="material_id" ref="genresi_stock.material_elmer_glaze"/>
+        <field name="date">2026-08-01</field>
+        <field name="move_type">in</field>
+        <field name="quantity">3000</field>
+        <field name="reference">Stok awal Agustus 2026</field>
+    </record>
+    <record id="stock_in_skm" model="genresi.stock.move">
+        <field name="material_id" ref="genresi_stock.material_skm"/>
+        <field name="date">2026-08-01</field>
+        <field name="move_type">in</field>
+        <field name="quantity">2000</field>
+        <field name="reference">Stok awal Agustus 2026</field>
+    </record>
+    <record id="stock_in_coklat_ceres" model="genresi.stock.move">
+        <field name="material_id" ref="genresi_stock.material_coklat_ceres"/>
+        <field name="date">2026-08-01</field>
+        <field name="move_type">in</field>
+        <field name="quantity">3962.5</field>
+        <field name="reference">Stok awal Agustus 2026</field>
+    </record>
+    <record id="stock_in_daging" model="genresi.stock.move">
+        <field name="material_id" ref="genresi_stock.material_daging"/>
+        <field name="date">2026-08-01</field>
+        <field name="move_type">in</field>
+        <field name="quantity">3000</field>
+        <field name="reference">Stok awal Agustus 2026</field>
+    </record>
+    <record id="stock_in_lunch_box" model="genresi.stock.move">
+        <field name="material_id" ref="genresi_stock.material_lunch_box"/>
+        <field name="date">2026-08-01</field>
+        <field name="move_type">in</field>
+        <field name="quantity">470</field>
+        <field name="reference">Stok awal Agustus 2026</field>
+    </record>
+    <record id="stock_in_kresek" model="genresi.stock.move">
+        <field name="material_id" ref="genresi_stock.material_kresek"/>
+        <field name="date">2026-08-01</field>
+        <field name="move_type">in</field>
+        <field name="quantity">350</field>
+        <field name="reference">Stok awal Agustus 2026</field>
+    </record>
+    <record id="stock_in_kundur" model="genresi.stock.move">
+        <field name="material_id" ref="genresi_stock.material_kundur"/>
+        <field name="date">2026-08-01</field>
+        <field name="move_type">in</field>
+        <field name="quantity">1000</field>
+        <field name="reference">Stok awal Agustus 2026</field>
+    </record>
+    <record id="stock_in_bombay" model="genresi.stock.move">
+        <field name="material_id" ref="genresi_stock.material_bombay"/>
+        <field name="date">2026-08-01</field>
+        <field name="move_type">in</field>
+        <field name="quantity">10</field>
+        <field name="reference">Stok awal Agustus 2026</field>
+    </record>
+    <record id="stock_in_selai_srikaya" model="genresi.stock.move">
+        <field name="material_id" ref="genresi_stock.material_selai_srikaya"/>
+        <field name="date">2026-08-01</field>
+        <field name="move_type">in</field>
+        <field name="quantity">1500</field>
         <field name="reference">Stok awal Agustus 2026</field>
     </record>
 </odoo>

@@ -7,9 +7,9 @@
             <tree string="Produk">
                 <field name="name"/>
                 <field name="business_line_id"/>
-                <field name="sale_price" widget="monetary"/>
-                <field name="hpp_per_piece" widget="monetary"/>
-                <field name="margin" widget="monetary"/>
+                <field name="sale_price" widget="monetary" digits="[16, 0]"/>
+                <field name="hpp_per_piece" widget="monetary" digits="[16, 0]"/>
+                <field name="margin" widget="monetary" digits="[16, 0]"/>
                 <field name="has_incomplete_cost" widget="boolean"/>
                 <field name="state" widget="badge"/>
             </tree>
@@ -39,9 +39,12 @@
                             <field name="active"/>
                         </group>
                         <group>
-                            <field name="sale_price" widget="monetary"/>
-                            <field name="hpp_per_piece" widget="monetary" readonly="1"/>
-                            <field name="margin" widget="monetary" readonly="1"/>
+                            <field name="sale_price" widget="monetary"
+                                options="{'field_digits': true}"/>
+                            <field name="hpp_per_piece" widget="monetary" readonly="1"
+                                options="{'field_digits': true}"/>
+                            <field name="margin" widget="monetary" readonly="1"
+                                options="{'field_digits': true}"/>
                             <field name="margin_pct" readonly="1"/>
                             <field name="has_incomplete_cost" readonly="1"/>
                             <field name="currency_id" invisible="1"/>

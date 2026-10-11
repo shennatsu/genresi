@@ -9,6 +9,7 @@
                 <field name="stock_qty"/>
                 <field name="min_stock"/>
                 <field name="stock_state"/>
+                <field name="stock_progress_qty"/>
                 <field name="uom_id"/>
                 <templates>
                     <t t-name="kanban-box">
@@ -21,6 +22,9 @@
                             </div>
                             <div>Stok: <field name="stock_qty"/> <field name="uom_id"/></div>
                             <div>Minimum: <field name="min_stock"/></div>
+                            <field name="stock_progress_qty" widget="progressbar"
+                                invisible="min_stock &lt;= 0"
+                                options="{'max_value': 'min_stock', 'editable': false}"/>
                         </div>
                     </t>
                 </templates>
@@ -34,7 +38,8 @@
             <tree string="Bahan Baku" decoration-danger="stock_state == 'critical'">
                 <field name="name"/>
                 <field name="uom_id"/>
-                <field name="price_per_unit" widget="monetary"/>
+                <field name="price_per_unit" widget="monetary" digits="[16, 0]"
+                    options="{'field_digits': true}"/>
                 <field name="stock_qty"/>
                 <field name="min_stock"/>
                 <field name="stock_state" widget="badge"/>
@@ -56,7 +61,8 @@
                         <group>
                             <field name="name"/>
                             <field name="uom_id"/>
-                            <field name="price_per_unit" widget="monetary"/>
+                            <field name="price_per_unit" widget="monetary"
+                                options="{'field_digits': true}"/>
                         </group>
                         <group>
                             <field name="min_stock"/>

@@ -30,9 +30,9 @@ class GenresiStockMove(models.Model):
         required=True,
         default="in",
     )
-    quantity = fields.Float(string="Jumlah", digits=(16, 3), required=True)
+    quantity = fields.Float(string="Jumlah", digits=(16, 2), required=True)
     signed_quantity = fields.Float(
-        string="Jumlah Bertanda", digits=(16, 3), compute="_compute_signed_quantity", store=True
+        string="Jumlah Bertanda", digits=(16, 2), compute="_compute_signed_quantity", store=True
     )
     uom_id = fields.Many2one(related="material_id.uom_id", string="Satuan", readonly=True)
     reference = fields.Char(string="Referensi")
